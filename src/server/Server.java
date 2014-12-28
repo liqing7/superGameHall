@@ -39,7 +39,7 @@ public class Server {
 						DataOutputStream(socket.getOutputStream());
 				socketOutstreamList.put(socket, outStream);
 				
-				new 
+				new ServerThread(socket).start();
 			}
 			
 		} catch (IOException exception) {

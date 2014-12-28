@@ -11,7 +11,7 @@ import java.net.Socket;
 public class User {
 	
 	//user id
-	private int id;
+	private String id;
 	
 	//user name
 	private String username;
@@ -28,21 +28,27 @@ public class User {
 	//user's socket
 	private Socket socket;
 	
-	//Constructor
-	User(int id, String username, String password, int sex, boolean isRemember) {
+	//Register Constructor
+	public User(String id, String username, String password, int sex) {
 		
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.sex = sex;
+	}
+	
+	public User(String username, String password, boolean isRemember) {
+		
+		this.username = username;
+		this.password = password;
 		this.isRemember = isRemember;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
