@@ -3,6 +3,7 @@ package utilities;
 import com.thoughtworks.xstream.XStream;
 
 /**
+ * convert between xml and object
  * 
  * @author LiQing
  *
