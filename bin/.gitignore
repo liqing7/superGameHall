@@ -1,2 +1,7 @@
 /client/
+<<<<<<< HEAD
 /userInterface/
+=======
+/server/
+/test/
+>>>>>>> origin/master

@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -18,7 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import client.ClientThread;
 import utilities.Constant;
+import utilities.Request;
+import utilities.RequestOpCode;
 import utilities.User;
 
 /**
@@ -47,6 +52,12 @@ public class LoginFrame extends JFrame{
 	
 	//Cancel button
 	private JButton cancelButton;
+	
+	private User user;
+	
+	private Socket socket;
+	
+	private DataOutputStream outstream;
 	
 	public LoginFrame() {
 		
@@ -180,16 +191,36 @@ public class LoginFrame extends JFrame{
 		}
 		
 		//get user
-		User user = getUser();
+		user = getUser();
+		int opCode = RequestOpCode.LOGIN;
+		Request request = new Request(opCode, user);
+		String reqString = request.toXML();
+		
+		try {
+			outstream = new DataOutputStream(user.getSocket().getOutputStream());
+			
+			outstream.writeBytes(reqString + "\n");
+			System.out.println(reqString);
 		
 		
-		this.setVisible(false);
+			//Start thread
+			ClientThread thread = new ClientThread(user, user.getSocket());
+			thread.start();
+		
+			this.setVisible(false);
+			//System.out.println("out");
+			//System.out.println(socket.isConnected());
+			//System.out.println(socket.isClosed());
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			System.out.println(out.checkError());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private User getUser() {
 		
-		//Build user
-		User user;
 		String username = this.nameField.getText();
 		String password = this.passwordField.getText();
 		//String id = UUID.randomUUID().toString();
@@ -198,7 +229,7 @@ public class LoginFrame extends JFrame{
 		
 		//set socket
 		try {
-			Socket socket = new Socket(InetAddress.getByName(Constant.IP), Constant.PORT);
+			socket = new Socket(InetAddress.getByName(Constant.IP), Constant.PORT);
 			user.setSocket(socket);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
