@@ -38,7 +38,7 @@ public class Server {
 				DataOutputStream outStream = new 
 						DataOutputStream(socket.getOutputStream());
 				socketOutstreamList.put(socket, outStream);
-				
+				System.out.println("yes");
 				new ServerThread(socket).start();
 			}
 			

@@ -36,9 +36,11 @@ public class ServerThread extends Thread {
 	public void run() {
 		try {
 			this.br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-			
+			//System.out.println("yes3");
+			//System.out.println(br.readLine());
+			//System.out.println("yes2");
 			while ((this.line = br.readLine()) != null) {
-				//Obtain request this line
+				//Obtain request this line			
 				System.out.println(this.line);
 				Request request = getRequest(this.line);
 				
@@ -48,7 +50,7 @@ public class ServerThread extends Thread {
 				}
 				switch (request.getOpCode()) {
 				case RequestOpCode.LOGIN:
-					new LoginAction(request.getUser()).execute();
+					new LoginAction(request.getUser(), socket).execute();
 					break;
 
 				case RequestOpCode.REGISTER:
@@ -81,6 +83,7 @@ public class ServerThread extends Thread {
 		}
 		finally {
 			try {
+				System.out.println("SOCKET CLOSE!!!!!!!!!");
 				socket.close();
 			} catch (IOException exception) {
 				exception.printStackTrace();
