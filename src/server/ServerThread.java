@@ -7,15 +7,20 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import javax.swing.text.GapContent;
 
+import utilities.Constant;
+import utilities.GameUser;
 import utilities.Request;
 import utilities.RequestOpCode;
+import utilities.Seat;
 import utilities.XStreamUtil;
+import utilities.Table;
 
 /**
- * 
+ * server thread
  * @author Qing
  *
  */
@@ -29,8 +34,42 @@ public class ServerThread extends Thread {
 	
 	private PrintStream ps;
 	
+	private Vector<String> gameNameList;
+	
+	public static Hashtable<String, Vector<GameUser> > userList;
+	
+	public static Table[][] tables;
+	
 	public ServerThread(Socket socket) {
 		this.socket = socket;
+		this.userList = new Hashtable<String, Vector<GameUser>>(gameNameList.capacity());
+		
+		for (String gameName : gameNameList)
+		{
+			userList.put(gameName, new Vector<GameUser>());
+		}
+		
+		tables = new Table[Constant.TABLE_COLUMN_SIZE][Constant.TABLE_ROW_SIZE];
+		int tableNumber = 0;
+		for (int i = 0; i < tables.length; i++) {
+			for (int j = 0; j < tables[i].length; j++) {
+				Table table = new Table(Constant.DEFAULT_IMAGE_WIDTH * i, 
+						Constant.DEFAULT_IMAGE_HEIGHT * j, tableNumber);
+				tables[i][j] = table;
+				tableNumber++;
+			}
+		}
+	}
+	
+	//get all game name
+	private void getGameList() {
+		
+		gameNameList = new Vector<String>();
+		
+		gameNameList.add("Three Chess");
+		gameNameList.add("Shooting");
+		gameNameList.add("Five Chess");
+
 	}
 	
 	public void run() {
@@ -58,7 +97,8 @@ public class ServerThread extends Thread {
 					break;
 					
 				case RequestOpCode.GET_IN_GAMEHALL:
-					new GetinGamehallAction(request.getUser(), socket).execute();
+					String gameSeleted = request.getGameSelected();
+					new GetinGamehallAction(request.getUser(), socket, gameSeleted).execute();
 					break;
 					
 				case RequestOpCode.GET_IN_SEAT:

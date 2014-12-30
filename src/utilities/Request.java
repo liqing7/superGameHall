@@ -1,5 +1,6 @@
 package utilities;
 
+
 public class Request {
 	
 	//request option code
@@ -12,9 +13,14 @@ public class Request {
 	private String gameSelected;
 	
 	//table selected
+	private Table table;
 	
 	//seat selected
+	private String side;
 	
+	//isReady
+	private boolean isReady;
+
 	public Request(int opCode, User user)
 	{
 		this.opCode = opCode;
@@ -43,6 +49,30 @@ public class Request {
 	
 	public void setGameSelected(String gameString) {
 		this.gameSelected = gameString;
+	}
+	
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
+	public boolean isReady() {
+		return isReady;
+	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
 	}
 	
 	public String toXML() {

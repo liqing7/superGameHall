@@ -17,10 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import client.ClientThread;
 import utilities.Request;
 import utilities.RequestOpCode;
 import utilities.User;
 
+/**
+ * 
+ * @author Qing
+ *
+ */
 public class GamehallListFrame extends JFrame{
 	
 	//game list
@@ -63,9 +69,9 @@ public class GamehallListFrame extends JFrame{
 		
 		gameNameList = new Vector<String>();
 		
-		gameNameList.add("Five Chess");
+		gameNameList.add("Three Chess");
 		gameNameList.add("Shooting");
-		gameNameList.add("Chinese Chess");
+		gameNameList.add("Five Chess");
 		gameNameList.add("Null");
 		gameNameList.add("Null");
 	}
@@ -179,7 +185,7 @@ public class GamehallListFrame extends JFrame{
 		for (JRadioButton tempButton : gameRadioList){
 			if (tempButton.isSelected()) {
 				String selectedGame = tempButton.getText();
-				System.out.println(selectedGame);
+				System.out.println(selectedGame);				
 				
 				int opCode = RequestOpCode.GET_IN_GAMEHALL;
 				Request request = new Request(opCode, user);

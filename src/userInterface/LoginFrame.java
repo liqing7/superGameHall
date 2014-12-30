@@ -223,9 +223,10 @@ public class LoginFrame extends JFrame{
 		
 		String username = this.nameField.getText();
 		String password = this.passwordField.getText();
-		//String id = UUID.randomUUID().toString();
+		String id = UUID.randomUUID().toString();
 		boolean isRemember = this.isRememberBox.isSelected();
 		user = new User(username, password, isRemember);
+		user.setId(id);
 		
 		//set socket
 		try {

@@ -7,14 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import userInterface.GameHallFrame;
 import userInterface.GamehallListFrame;
 import userInterface.LoginFrame;
 import utilities.Constant;
+import utilities.GameUser;
 import utilities.Response;
 import utilities.ResponseResCode;
+import utilities.Table;
 import utilities.User;
 import utilities.XStreamUtil;
 
@@ -33,6 +37,9 @@ public class ClientThread extends Thread{
 	
 	//output stream
 	private DataOutputStream outputStream;
+	
+	//game selected
+	public static String gameSelected;
 	
 	//input line
 	private String line;
@@ -99,14 +106,20 @@ public class ClientThread extends Thread{
 					
 					System.out.println("Get in GameHall succeed");
 					
+					gameSelected = response.getGameSeleted();
 					//set gamelist frame invisible
 					gamehallListFrameInstance.setVisible(false);
 					
 					//build game hall frame
+					Table[][] tables = response.getTables();
+					Vector<GameUser> users = response.getUserList();
+					GameUser gameUser = new GameUser(user, gameSelected);
 					
+					new GameHallFrame(tables, users, gameUser);
 					break;
 					
 				case ResponseResCode.GET_IN_SEAT_SUCC:
+					System.out.println("Get in seat succeed");
 					
 					break;
 					
