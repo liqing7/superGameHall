@@ -8,6 +8,13 @@ public class Request {
 	//user
 	private User user;
 	
+	//game selected
+	private String gameSelected;
+	
+	//table selected
+	
+	//seat selected
+	
 	public Request(int opCode, User user)
 	{
 		this.opCode = opCode;
@@ -28,6 +35,14 @@ public class Request {
 	
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getGameSelected() {
+		return gameSelected;
+	}
+	
+	public void setGameSelected(String gameString) {
+		this.gameSelected = gameString;
 	}
 	
 	public String toXML() {

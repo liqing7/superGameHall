@@ -1,7 +1,4 @@
-/client/
-<<<<<<< HEAD
 /userInterface/
-=======
+/client/
+/utilities/
 /server/
-/test/
->>>>>>> origin/master

@@ -204,10 +204,10 @@ public class LoginFrame extends JFrame{
 		
 		
 			//Start thread
-			ClientThread thread = new ClientThread(user, user.getSocket());
+			ClientThread thread = new ClientThread(user, user.getSocket(), outstream, this);
 			thread.start();
 		
-			this.setVisible(false);
+			//this.setVisible(false);
 			//System.out.println("out");
 			//System.out.println(socket.isConnected());
 			//System.out.println(socket.isClosed());

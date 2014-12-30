@@ -58,7 +58,7 @@ public class ServerThread extends Thread {
 					break;
 					
 				case RequestOpCode.GET_IN_GAMEHALL:
-					new GetinGamehallAction(request.getUser()).execute();
+					new GetinGamehallAction(request.getUser(), socket).execute();
 					break;
 					
 				case RequestOpCode.GET_IN_SEAT:

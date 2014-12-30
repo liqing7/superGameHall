@@ -2,6 +2,7 @@ package client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import userInterface.GamehallListFrame;
+import userInterface.LoginFrame;
 import utilities.Constant;
 import utilities.Response;
 import utilities.ResponseResCode;
@@ -29,15 +31,26 @@ public class ClientThread extends Thread{
 	//user's socket
 	private Socket socket;
 	
+	//output stream
+	private DataOutputStream outputStream;
+	
 	//input line
 	private String line;
 	
 	//Thread
 	private volatile boolean isRun = true;  
 	
-	public ClientThread(User user, Socket socket) {
+	//login frame
+	private LoginFrame loginFrameInstance;
+	
+	//game list frame
+	private GamehallListFrame gamehallListFrameInstance;
+	
+	public ClientThread(User user, Socket socket, DataOutputStream outputStream, LoginFrame loginFrame) {
 		this.user = user;
 		this.socket = socket;
+		this.outputStream = outputStream;
+		this.loginFrameInstance = loginFrame;
 	}
 	
 	public void run() {
@@ -56,6 +69,7 @@ public class ClientThread extends Thread{
 			while ((this.line = reader.readLine()) != null) {
 				Response response = getResponse(this.line);
 				System.out.println("Get in while");
+				
 				if (response.getResCode() % 2 != 0)
 				{
 					System.out.println("Some errors occur!");
@@ -68,7 +82,13 @@ public class ClientThread extends Thread{
 					//build a game hall list frame
 					System.out.println("Logging succeed");
 					
-					new GamehallListFrame(user);
+					//set login frame invisible
+					loginFrameInstance.setVisible(false);
+					
+					//build game hall list frame
+					gamehallListFrameInstance = new GamehallListFrame(user);
+					gamehallListFrameInstance.setOutputStream(outputStream);
+					
 					break;
 
 				case ResponseResCode.REGISTER_SUCC:
@@ -76,6 +96,13 @@ public class ClientThread extends Thread{
 					break;
 					
 				case ResponseResCode.GET_IN_GAMEHALL_SUCC:
+					
+					System.out.println("Get in GameHall succeed");
+					
+					//set gamelist frame invisible
+					gamehallListFrameInstance.setVisible(false);
+					
+					//build game hall frame
 					
 					break;
 					

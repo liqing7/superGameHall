@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.Box;
@@ -15,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import utilities.Request;
+import utilities.RequestOpCode;
 import utilities.User;
 
 public class GamehallListFrame extends JFrame{
@@ -24,6 +28,9 @@ public class GamehallListFrame extends JFrame{
 	
 	//user
 	private User user;
+	
+	//data output stream
+	private DataOutputStream outputStream;
 	
 	//user info
 	private JLabel username;
@@ -159,7 +166,37 @@ public class GamehallListFrame extends JFrame{
 		});
 	}
 	
+	public DataOutputStream getOutputStream() {
+		return outputStream;
+	}
+
+	public void setOutputStream(DataOutputStream outputStream) {
+		this.outputStream = outputStream;
+	}
+	
 	private void Getin() {
-		
+
+		for (JRadioButton tempButton : gameRadioList){
+			if (tempButton.isSelected()) {
+				String selectedGame = tempButton.getText();
+				System.out.println(selectedGame);
+				
+				int opCode = RequestOpCode.GET_IN_GAMEHALL;
+				Request request = new Request(opCode, user);
+				request.setGameSelected(selectedGame);
+				String reqString = request.toXML();
+
+				try {
+					outputStream.writeBytes(reqString + "\n");
+					
+					System.out.println(reqString);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+				break;
+			}
+		}
 	}
 }
