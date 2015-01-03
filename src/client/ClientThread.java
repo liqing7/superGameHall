@@ -30,7 +30,7 @@ import utilities.XStreamUtil;
 public class ClientThread extends Thread{
 
 	//user
-	private User user;
+	public static User user;
 	
 	//user's socket
 	private Socket socket;
@@ -53,8 +53,13 @@ public class ClientThread extends Thread{
 	//game list frame
 	private GamehallListFrame gamehallListFrameInstance;
 	
+	//Game hall frame
+	private GameHallFrame gamehallFrameInstance;
+	
 	public ClientThread(User user, Socket socket, DataOutputStream outputStream, LoginFrame loginFrame) {
-		this.user = user;
+		ClientThread.user = user;
+		System.out.println("In clienct thread constructor user id : " + ClientThread.user.getId());
+		
 		this.socket = socket;
 		this.outputStream = outputStream;
 		this.loginFrameInstance = loginFrame;
@@ -65,6 +70,7 @@ public class ClientThread extends Thread{
 		try {
 			InputStream is;
 			is = user.getSocket().getInputStream();
+			User userBack;
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 			System.out.println("Get in thread");
@@ -74,6 +80,7 @@ public class ClientThread extends Thread{
 			//System.out.println("yes2");
 			
 			while ((this.line = reader.readLine()) != null) {
+				System.out.println(this.line);
 				Response response = getResponse(this.line);
 				System.out.println("Get in while");
 				
@@ -92,8 +99,10 @@ public class ClientThread extends Thread{
 					//set login frame invisible
 					loginFrameInstance.setVisible(false);
 					
+					userBack = response.getUser();
+					
 					//build game hall list frame
-					gamehallListFrameInstance = new GamehallListFrame(user);
+					gamehallListFrameInstance = new GamehallListFrame(userBack);
 					gamehallListFrameInstance.setOutputStream(outputStream);
 					
 					break;
@@ -107,19 +116,29 @@ public class ClientThread extends Thread{
 					System.out.println("Get in GameHall succeed");
 					
 					gameSelected = response.getGameSeleted();
+					System.out.println("clientthread gameselected : " + gameSelected);
 					//set gamelist frame invisible
 					gamehallListFrameInstance.setVisible(false);
 					
+					userBack = response.getUser();
 					//build game hall frame
 					Table[][] tables = response.getTables();
 					Vector<GameUser> users = response.getUserList();
-					GameUser gameUser = new GameUser(user, gameSelected);
-					
-					new GameHallFrame(tables, users, gameUser);
+					GameUser gameUser = new GameUser(userBack, gameSelected);
+					gameUser.setSocket(socket);
+//					System.out.println("2 user" + user.getId());
+//					System.out.println("2" + gameUser.getId());
+//					if (gameUser.getSocket() == null)
+//						System.out.println(true);
+//					if (user.getSocket() == null)
+//						System.out.println(true);
+					gamehallFrameInstance = new GameHallFrame(tables, users, gameUser);
 					break;
 					
 				case ResponseResCode.GET_IN_SEAT_SUCC:
 					System.out.println("Get in seat succeed");
+					
+					//build game frame
 					
 					break;
 					
@@ -130,6 +149,14 @@ public class ClientThread extends Thread{
 				case ResponseResCode.GAME_MOVE_SUCC:
 					
 					break;
+					
+				case ResponseResCode.UPDATE_TABLES:
+					System.out.println("Update tables");
+					Table[][] tablesUpdate = response.getTables();
+					gamehallFrameInstance.setTables(tablesUpdate);
+					gamehallFrameInstance.repaint();
+					break;
+					
 				default:
 					break;
 				}

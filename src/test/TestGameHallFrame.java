@@ -27,14 +27,14 @@ public class TestGameHallFrame {
 			}
 		}
 		Vector<GameUser> users = new Vector<GameUser>();
-		GameUser u1 = new GameUser("User1", "aaa", true);
+		GameUser u1 = new GameUser("id1", "User1", "aaa", true);
 		
-		GameUser u2 = new GameUser("User2", "aaa", true);
+		GameUser u2 = new GameUser("id2", "User2", "aaa", true);
 		
 		users.add(u1);
 		users.add(u2);
 		
-		GameUser user = new GameUser("me", "aaa", true);
+		GameUser user = new GameUser("id3", "me", "aaa", true);
 
 		GameHallFrame g = new GameHallFrame(tables, users, user);
 	}

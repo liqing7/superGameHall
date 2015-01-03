@@ -1,6 +1,7 @@
 package userInterface;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -51,6 +52,8 @@ public class GameHallFrame extends JFrame{
 	private void initComponent() {
 		// TODO Auto-generated method stub
 		this.hallPanel = new HallPanel(tables, gameUser, userlist, gameUser.getGameName());
+		System.out.println("3 " + gameUser.getId());
+		
 		this.chatLabel = new JLabel("Chat");
 		this.userListJLabel = new JLabel("User list");
 	}
@@ -87,5 +90,26 @@ public class GameHallFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		this.setVisible(true);
 	}
+
+	public Table[][] getTables() {
+		return tables;
+	}
+
+	public void setTables(Table[][] tables) {
+		this.tables = tables;
+		hallPanel.setTables(tables);
+	}
+
+	public Vector<GameUser> getUserlist() {
+		return userlist;
+	}
+
+	public void setUserlist(Vector<GameUser> userlist) {
+		this.userlist = userlist;
+	}
+	
+//	public void paint(Graphics g) {
+//		this.hallPanel.repaint();
+//	}
 
 }

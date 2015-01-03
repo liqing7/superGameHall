@@ -44,4 +44,7 @@ public class ResponseResCode {
 	//game move
 	public final static int GAME_MOVE_FAIL = 11;
 	
+	//update tables
+	public final static int UPDATE_TABLES = 20;
+	
 }

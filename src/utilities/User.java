@@ -25,9 +25,12 @@ public class User {
 	//remember?
 	private boolean isRemember;
 	
-	//user's socket
+	//user's client socket
 	private Socket socket;
 	
+	//user's server socket
+	private Socket serverSocket;
+
 	//Register Constructor
 	public User(String id, String username, String password, int sex) {
 		
@@ -37,8 +40,9 @@ public class User {
 		this.sex = sex;
 	}
 	
-	public User(String username, String password, boolean isRemember) {
+	public User(String id, String username, String password, boolean isRemember) {
 		
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.isRemember = isRemember;
@@ -84,4 +88,23 @@ public class User {
 		this.isRemember = isRemember;
 	}
 	
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+
+	public Socket getServerSocket() {
+		return serverSocket;
+	}
+
+	public void setServerSocket(Socket serverSocket) {
+		this.serverSocket = serverSocket;
+	}
+
+	public void setRemember(boolean isRemember) {
+		this.isRemember = isRemember;
+	}
 }

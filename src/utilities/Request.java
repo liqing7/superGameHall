@@ -9,6 +9,9 @@ public class Request {
 	//user
 	private User user;
 	
+	//Game user
+	private GameUser gameUser;
+	
 	//game selected
 	private String gameSelected;
 	
@@ -20,11 +23,36 @@ public class Request {
 	
 	//isReady
 	private boolean isReady;
+	
+	//chess(used in game_move)
+	private Chess chess;
+
+	public GameUser getGameUser() {
+		return gameUser;
+	}
+
+	public void setGameUser(GameUser gameUser) {
+		this.gameUser = gameUser;
+	}
+
+	public Chess getChess() {
+		return chess;
+	}
+
+	public void setChess(Chess chess) {
+		this.chess = chess;
+	}
 
 	public Request(int opCode, User user)
 	{
 		this.opCode = opCode;
 		this.user = user;
+	}
+	
+	public Request(int opCode, GameUser user)
+	{
+		this.opCode = opCode;
+		this.gameUser = user;
 	}
 	
 	public int getOpCode() {

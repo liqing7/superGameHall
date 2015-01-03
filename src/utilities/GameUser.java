@@ -17,13 +17,13 @@ public class GameUser extends User {
 	//is the user sit?
 	private boolean isSit;
 	
-	public GameUser(String username, String password, boolean isRemember) {
-		super(username, password, isRemember);
+	public GameUser(String id, String username, String password, boolean isRemember) {
+		super(id, username, password, isRemember);
 		// TODO Auto-generated constructor stub
 	}
 	
 	public GameUser(User user, String gameName) {
-		super(user.getUsername(), user.getPassword(), user.getIsRemember());
+		super(user.getId(), user.getUsername(), user.getPassword(), user.getIsRemember());
 	
 		this.gameName = gameName;
 	}
@@ -63,6 +63,9 @@ public class GameUser extends User {
 					if (this.getId().equals(ls.getUser().getId())) return true;
 				}
 				if (rs.getUser() != null) {
+					if (rs.getUser().getId() == null) {
+						System.out.println("Rs user ID is null");
+					}
 					if (this.getId().equals(rs.getUser().getId())) return true;
 				}
 			}

@@ -34,5 +34,23 @@ public class Constant {
 	
 	//Numbers of tables one column
 	public final static int TABLE_ROW_SIZE = 10;
+	
+	//Chess color
+	public final static String BLACK = "black";
+	
+	public final static String WHITE = "white";
+	
+	//Chess width
+	public final static int CHESS_WIDTH = 33;
+	
+	//Chess height
+	public final static int CHESS_HEIGHT = 33;
+	
+	//chess board width
+	public final static int CHESS_BOARD_X_SIZE = 15;
+	
+	//chess board height
+	public final static int CHESS_BOARD_Y_SIZE = 15;
+
 
 }

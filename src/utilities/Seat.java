@@ -10,7 +10,7 @@ import java.awt.Rectangle;
 public class Seat {
 
 	//user in the seat
-	private User user;
+	private GameUser user;
 	
 	//seat range
 	private Rectangle range;
@@ -18,17 +18,17 @@ public class Seat {
 	//seat side
 	private String side;
 
-	public Seat(User user, Rectangle range, String side) {
+	public Seat(GameUser user, Rectangle range, String side) {
 		
 		this.user = user;
 		this.range = range;
 		this.side = side;
 	}
-	public User getUser() {
+	public GameUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(GameUser user) {
 		this.user = user;
 	}
 

@@ -34,43 +34,32 @@ public class ServerThread extends Thread {
 	
 	private PrintStream ps;
 	
-	private Vector<String> gameNameList;
-	
-	public static Hashtable<String, Vector<GameUser> > userList;
-	
-	public static Table[][] tables;
-	
+//	private Vector<String> gameNameList;
+//		
+//	public Vector<String> getGameNameList() {
+//		return gameNameList;
+//	}
+//
+//	public void setGameNameList(Vector<String> gameNameList) {
+//		this.gameNameList = gameNameList;
+//	}
+
 	public ServerThread(Socket socket) {
+		//getGameList();
 		this.socket = socket;
-		this.userList = new Hashtable<String, Vector<GameUser>>(gameNameList.capacity());
-		
-		for (String gameName : gameNameList)
-		{
-			userList.put(gameName, new Vector<GameUser>());
-		}
-		
-		tables = new Table[Constant.TABLE_COLUMN_SIZE][Constant.TABLE_ROW_SIZE];
-		int tableNumber = 0;
-		for (int i = 0; i < tables.length; i++) {
-			for (int j = 0; j < tables[i].length; j++) {
-				Table table = new Table(Constant.DEFAULT_IMAGE_WIDTH * i, 
-						Constant.DEFAULT_IMAGE_HEIGHT * j, tableNumber);
-				tables[i][j] = table;
-				tableNumber++;
-			}
-		}
-	}
-	
-	//get all game name
-	private void getGameList() {
-		
-		gameNameList = new Vector<String>();
-		
-		gameNameList.add("Three Chess");
-		gameNameList.add("Shooting");
-		gameNameList.add("Five Chess");
 
 	}
+	
+//	//get all game name
+//	private void getGameList() {
+//		
+//		gameNameList = new Vector<String>();
+//		
+//		gameNameList.add("Five Chess");
+//		gameNameList.add("Shooting");
+//		gameNameList.add("Single Five Chess");
+//
+//	}
 	
 	public void run() {
 		try {
@@ -102,7 +91,7 @@ public class ServerThread extends Thread {
 					break;
 					
 				case RequestOpCode.GET_IN_SEAT:
-					new GetinSeatAction(request.getUser()).execute();
+					new GetinSeatAction(request, socket).execute();
 					break;
 					
 				case RequestOpCode.GAME_READY:

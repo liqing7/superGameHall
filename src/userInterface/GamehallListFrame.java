@@ -18,6 +18,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import client.ClientThread;
+import utilities.GameInfo;
+import utilities.GameNameList;
 import utilities.Request;
 import utilities.RequestOpCode;
 import utilities.User;
@@ -67,13 +69,14 @@ public class GamehallListFrame extends JFrame{
 	//get all game name
 	private void getGameList() {
 		
-		gameNameList = new Vector<String>();
+    	gameNameList = GameNameList.gameNameList;
 		
-		gameNameList.add("Three Chess");
-		gameNameList.add("Shooting");
-		gameNameList.add("Five Chess");
-		gameNameList.add("Null");
-		gameNameList.add("Null");
+//		
+//		gameNameList.add("Three Chess");
+//		gameNameList.add("Shooting");
+//		gameNameList.add("Five Chess");
+//		gameNameList.add("Null");
+//		gameNameList.add("Null");
 	}
 	
 	private void initComponent(){

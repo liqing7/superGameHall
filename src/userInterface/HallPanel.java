@@ -112,6 +112,9 @@ public class HallPanel extends JPanel {
 		int y = e.getY();
 		//get table
 		Table table = getTable(x, y);
+		
+		System.out.println("4 " + user.getId());
+		
 		if (table != null) {
 			//get seat
 			Seat seat = getSeat(table, x, y);
@@ -165,12 +168,16 @@ public class HallPanel extends JPanel {
 		Request request = new Request(RequestOpCode.GET_IN_SEAT, user);
 
 		request.setGameSelected(gameSelected);
+		System.out.println("game selected: " + request.getGameSelected());
 		request.setTable(table);
 		request.setSide(side);
 			
 		try {
 			String reqString;
 			reqString = request.toXML();
+			System.out.println(reqString);
+			if (user.getSocket() == null)
+				System.out.println("user socket is null");
 			DataOutputStream outstream = new DataOutputStream(user.getSocket().getOutputStream());
 			
 			outstream.writeBytes(reqString + "\n");
@@ -219,6 +226,7 @@ public class HallPanel extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
+		System.out.println("paint");
 		for (int i = 0; i < this.tables.length; i++) {
 			for (int j = 0; j < this.tables[i].length; j++) {
 				
@@ -245,6 +253,14 @@ public class HallPanel extends JPanel {
 				}
 			}
 		}
+	}
+
+	public Table[][] getTables() {
+		return tables;
+	}
+
+	public void setTables(Table[][] tables) {
+		this.tables = tables;
 	}
 
 }

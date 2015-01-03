@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
+import utilities.GameInfo;
 import utilities.GameUser;
 import utilities.Response;
 import utilities.ResponseResCode;
@@ -30,19 +31,23 @@ public class GetinGamehallAction implements ServerAction {
 		
 		if (judge(gameName)) {
 			//add in user list
-			Vector<GameUser> list = ServerThread.userList.get(gameName);
+			Vector<GameUser> list = GameInfo.userList.get(gameName);
 			GameUser gameUser = new GameUser(user, gameName);
+			gameUser.setServerSocket(socket);
 			list.add(gameUser);
 			
 			//update online user list
-			ServerThread.userList.put(gameName, list);
+			GameInfo.userList.put(gameName, list);
 			
 			Response response = new Response(
 					ResponseResCode.GET_IN_GAMEHALL_SUCC, user);
 			//set user list
 			response.setUserList(list);
+			System.out.println("user list size" + GameInfo.userList.get(gameName).size());
 			//set hall tables
-			response.setTables(ServerThread.tables);
+			response.setTables(GameInfo.tables);
+			response.setGameSeleted(gameName);
+			
 			String responseString = response.toXML();
 			
 			try {
@@ -60,6 +65,8 @@ public class GetinGamehallAction implements ServerAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else {
+			//build a fail response object and send it to client
 		}
 
 	}

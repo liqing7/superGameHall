@@ -101,22 +101,22 @@ public class Table {
 	
 	//get right seat begin x pos
 	public int getRightSeatBeginX() {
-		return this.beginX + 101;
+		return this.beginX + 106;
 	}
 	
 	//get right seat begin y pos
 	public int getRightSeatBeginY() {
-		return this.beginY + 52;
+		return this.beginY + 56;
 	}
 
 	//get left seat begin x pos
 	public int getLeftSeatBeginX() {
-		return this.beginX + 12;
+		return this.beginX + 4;
 	}
 	
 	//get left seat begin y pos
 	public int getLeftSeatBeginY() {
-		return this.beginY + 52;
+		return this.beginY + 56;
 	} 
 	
 //	/**
@@ -129,50 +129,50 @@ public class Table {
 //		else return this.rightSeat;
 //	}
 //		
-//	//根据桌子编号取得桌子对象
-//	public static Table getTable(Integer tableNumber, Table[][] tables) {
-//		for (int i = 0; i < tables.length; i++) {
-//			for (int j = 0; j < tables[i].length; j++) {
-//				Table table = tables[i][j];
-//				if (tableNumber == table.getTableNumber()) return table;
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	/**
-//	 * 得到玩家在桌子的位置
-//	 * @param user
-//	 * @return
-//	 */
-//	public Seat getUserSeat(ChessUser user) {
-//		if (this.leftSeat.getUser() != null) {
-//			if (this.leftSeat.getUser() != null) {
-//				if (user.getId().equals(this.leftSeat.getUser().getId())) {
-//					return this.leftSeat;
-//				}
-//			}
-//		}
-//		if (this.rightSeat.getUser() != null) {
-//			if (this.rightSeat.getUser() != null) {
-//				if (user.getId().equals(this.rightSeat.getUser().getId())) {
-//					return this.rightSeat;
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	/**
-//	 * 获得桌子另外一边的座位
-//	 * @param seat
-//	 * @return
-//	 */
-//	public Seat getAnotherSeat(Seat seat) {
-//		if (seat.getSide().equals(Seat.LEFT)) return this.rightSeat;
-//		else return this.leftSeat;
-//	}
-//	
+	//get Table according to table number
+	public static Table getTable(Integer tableNumber, Table[][] tables) {
+		for (int i = 0; i < tables.length; i++) {
+			for (int j = 0; j < tables[i].length; j++) {
+				Table table = tables[i][j];
+				if (tableNumber == table.getTableNumber()) return table;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * get user's table
+	 * @param user
+	 * @return
+	 */
+	public Seat getUserSeat(GameUser user) {
+		if (this.leftSeat.getUser() != null) {
+			if (this.leftSeat.getUser() != null) {
+				if (user.getId().equals(this.leftSeat.getUser().getId())) {
+					return this.leftSeat;
+				}
+			}
+		}
+		if (this.rightSeat.getUser() != null) {
+			if (this.rightSeat.getUser() != null) {
+				if (user.getId().equals(this.rightSeat.getUser().getId())) {
+					return this.rightSeat;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * get the other side seat
+	 * @param seat
+	 * @return
+	 */
+	public Seat getAnotherSeat(Seat seat) {
+		if (seat.getSide().equals(Constant.LEFT)) return this.rightSeat;
+		else return this.leftSeat;
+	}
+	
 //	/**
 //	 * 得到对手
 //	 * @param user

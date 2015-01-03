@@ -206,6 +206,8 @@ public class LoginFrame extends JFrame{
 			//Start thread
 			ClientThread thread = new ClientThread(user, user.getSocket(), outstream, this);
 			thread.start();
+			
+			System.out.println("1 " + user.getId());
 		
 			//this.setVisible(false);
 			//System.out.println("out");
@@ -225,8 +227,8 @@ public class LoginFrame extends JFrame{
 		String password = this.passwordField.getText();
 		String id = UUID.randomUUID().toString();
 		boolean isRemember = this.isRememberBox.isSelected();
-		user = new User(username, password, isRemember);
-		user.setId(id);
+		user = new User(id, username, password, isRemember);
+		//user.setId(id);
 		
 		//set socket
 		try {

@@ -12,7 +12,7 @@ public class TestGamehallListFrame {
 
 	public static void main(String args[]) {
 		
-		User user = new User("Test", "Test", true);
+		User user = new User("id1", "Test", "Test", true);
 		
 		new GamehallListFrame(user);
 	}

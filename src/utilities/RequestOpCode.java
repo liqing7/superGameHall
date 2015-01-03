@@ -26,4 +26,16 @@ public class RequestOpCode {
 	//game move
 	public final static int GAME_MOVE = 5;
 	
+	//want to draw
+	public final static int GAME_DRAW = 6;
+	
+	//agree to draw
+	public final static int AGREE_TO_DRAW = 7;
+	
+	//refuse to draw
+	public final static int REFUSE_TO_DRAW = 8;
+	
+	//give up
+	public final static int GIVE_UP = 9;
+	
 }

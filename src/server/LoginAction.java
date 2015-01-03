@@ -33,6 +33,8 @@ public class LoginAction implements ServerAction{
 		
 		if (judgeUser())
 		{
+			//set server socket
+			user.setServerSocket(socket);
 			Response response = new Response(ResponseResCode.LOGIN_SUCC, user);
 			String responseString = response.toXML();
 			try {
