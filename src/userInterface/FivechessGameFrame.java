@@ -52,6 +52,7 @@ public class FivechessGameFrame extends JFrame {
 	public FivechessGameFrame(Table table, GameUser gameUser) {
 		this.table = table;
 		this.gameUser = gameUser;
+		this.users = new Vector<GameUser>();
 		
 //		//游戏界面与聊天界面使用的集合
 //		this.users = getUsers(table, user);
@@ -189,6 +190,7 @@ public class FivechessGameFrame extends JFrame {
 	
 	//refresh ui
 	public void refreshUI() {
+		this.gamePanel.setTable(table);
 		this.gamePanel.repaint();
 //		this.chatPanel.refreshJComboBox();
 //		this.userTable.refresh();

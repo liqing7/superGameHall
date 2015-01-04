@@ -173,15 +173,15 @@ public class Table {
 		else return this.leftSeat;
 	}
 	
-//	/**
-//	 * 得到对手
-//	 * @param user
-//	 * @return
-//	 */
-//	public ChessUser getAnotherUser(ChessUser user) {
-//		Seat seat = getUserSeat(user);
-//		if (seat == null) return null;
-//		Seat otherSeat = getAnotherSeat(seat);
-//		return otherSeat.getUser();
-//	}
+	/**
+	 * get opponent
+	 * @param user
+	 * @return
+	 */
+	public GameUser getAnotherUser(GameUser user) {
+		Seat seat = getUserSeat(user);
+		if (seat == null) return null;
+		Seat otherSeat = getAnotherSeat(seat);
+		return otherSeat.getUser();
+	}
 }

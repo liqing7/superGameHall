@@ -99,7 +99,7 @@ public class ServerThread extends Thread {
 					break;
 					
 				case RequestOpCode.GAME_MOVE:
-					new GameMoveAction(request.getUser()).execute();
+					new GameMoveAction(request).execute();
 					break;
 					
 				default:

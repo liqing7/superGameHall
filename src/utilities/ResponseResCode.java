@@ -53,4 +53,13 @@ public class ResponseResCode {
 	//update game frame
 	public final static int UPDATE_GAMEFRAME = 24;
 	
+	//game win
+	public final static int GAME_WIN = 26;
+	
+	//game lose
+	public final static int GAME_LOSE = 28;
+	
+	//opponent moved
+	public final static int OPPONENT_MOVED = 30;
+	
 }

@@ -1,5 +1,4 @@
 /server/
-/utilities/
-/userInterface/
 /client/
-/test/
+/userInterface/
+/utilities/

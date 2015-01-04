@@ -32,6 +32,17 @@ public class Response {
 	//user's table
 	private Table table;
 	
+	private Chess chess;
+	
+	
+	public Chess getChess() {
+		return chess;
+	}
+
+	public void setChess(Chess chess) {
+		this.chess = chess;
+	}
+
 	public Table getTable() {
 		return table;
 	}

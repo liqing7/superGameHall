@@ -4,6 +4,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import org.w3c.dom.ls.LSException;
+
 import utilities.Constant;
 import utilities.GameUser;
 import utilities.Request;
@@ -43,18 +45,24 @@ public class GameReadyAction implements ServerAction{
 		Table table = GameInfo.getTable(user.getId());
 		user.setReady(true);
 		
+		//update the ready status in server
+		GameInfo.readyListSet.add(user.getId());
+		
 		//judge if the opponent is ready
 		Seat seat = table.getUserSeat(user);
+		
 		//get opponent
 		GameUser opponent = table.getAnotherSeat(seat).getUser();
+		
 		if (opponent != null) {
 			
 			//another seat have a user, then judge if he is ready
-			if (opponent.isReady()) {
+			if (GameInfo.readyListSet.contains(opponent.getId())) { //opponent.isReady()
 				
 				//both is ready, then create chess board
 				createChessArray(table);
 				
+				System.out.println("Ready to send message to start game ");
 				//send message to both user, game start
 				Response responseUser1 = new Response(ResponseResCode.GAME_START, opponent);
 				Socket opponentSocket = opponent.getServerSocket();
@@ -85,6 +93,8 @@ public class GameReadyAction implements ServerAction{
 				}			
 
 				
+			} else {
+				System.out.println("Opponent is not ready");
 			}
 			
 //			//告诉对手自己准备好了, 使用对手接收准备的客户端处理类

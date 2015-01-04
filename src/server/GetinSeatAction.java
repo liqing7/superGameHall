@@ -10,6 +10,7 @@ import utilities.GameUser;
 import utilities.Request;
 import utilities.Response;
 import utilities.ResponseResCode;
+import utilities.Seat;
 import utilities.Table;
 import utilities.User;
 
@@ -67,6 +68,40 @@ public class GetinSeatAction implements ServerAction{
 				e.printStackTrace();
 			}
 
+			//send message to the user in same table
+			//get opponent
+			Seat seat = table.getUserSeat(gameUser);
+			GameUser opponent = table.getAnotherSeat(seat).getUser();
+			
+			System.out.println("Ready to send to opponent");
+			
+			if (opponent == null) {
+				System.out.println("user " + gameUser.getUsername() + "'s opponent is null");
+			}
+			
+			if (opponent != null) {
+				System.out.println("Opponent is not null");
+				//send message to opponent
+				Response responseUser1 = new Response(ResponseResCode.UPDATE_GAMEFRAME, opponent);
+				responseUser1.setTable(table);
+				
+				Socket opponentSocket = opponent.getServerSocket();
+				String opponentResponseString = responseUser1.toXML();
+				
+				DataOutputStream outputStream1;
+				try {
+					if (opponentSocket == null) {
+						System.out.println("opponent socket is null");
+					}
+					System.out.println("opponent name is " + opponent.getUsername());
+					outputStream1 = new DataOutputStream(opponentSocket.getOutputStream());
+					outputStream1.writeBytes(opponentResponseString + "\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			//send message to user in the same game hall
 			String gameSeleted = request.getGameSelected();
 			//System.out.println(gameSeleted);

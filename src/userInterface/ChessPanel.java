@@ -24,6 +24,7 @@ import utilities.Table;
 import utilities.Seat;
 import utilities.XStreamUtil;
 import utilities.Request;
+import client.StartGameTask;
 
 
 /**
@@ -80,6 +81,11 @@ public class ChessPanel extends JPanel {
 	
 	//start image
 	private Image gameStartImage;
+	
+	//start image timer
+	private StartGameTask startGameTask;
+	
+	private Timer timer;
 	
 	public ChessPanel(Table table, GameUser user) {
 		this.table = table;
@@ -200,6 +206,15 @@ public class ChessPanel extends JPanel {
 		return null;
 	}
 	
+	//update chess board
+	public void setChessinBoard(Chess chess) {
+		int i = chess.getI();
+		int j = chess.getJ();
+		
+		chessArray[i][j].setColor(chess.getColor());
+		
+	}
+	
 	//send server move request 
 	private void requestTakeChess(Chess chess) {
 		
@@ -238,7 +253,7 @@ public class ChessPanel extends JPanel {
 //		this.user.getPrintStream().println(XStreamUtil.toXML(request));
 	}
 	
-	//胜利调用的方法
+	//win
 	public void win() {
 		endGame();
 		JOptionPane.showConfirmDialog(null, "You Win!", "Game End", 
@@ -246,7 +261,7 @@ public class ChessPanel extends JPanel {
 
 	}
 	
-	//失败调用的方法
+	//lose
 	public void lost() {
 		endGame();
 		JOptionPane.showConfirmDialog(null, "You Lose!", "Game End", 
@@ -305,8 +320,8 @@ public class ChessPanel extends JPanel {
 	//show start image
 	public void showStartImage() {
 		if (this.startImageY >= 330) {
-//			this.timer.cancel();
-//			this.timer = null;
+			this.timer.cancel();
+			this.timer = null;
 			this.gameStartImage = null;
 			this.startImageY = 230;
 		}
@@ -332,7 +347,7 @@ public class ChessPanel extends JPanel {
 		}
 	}
 	
-	//发送认输的请求
+	//send to give up
 	public void sendLostRequest() {
 //		Request request = new Request(
 //		"org.crazyit.gamehall.fivechess.server.action.LostAction", 
@@ -410,6 +425,8 @@ public class ChessPanel extends JPanel {
 	
 	//set game state
 	public void startGame() {
+		System.out.println("Game start");
+		
 		this.gaming = true;
 		this.currentToolImage = GameResourceLoader.getTool_drawAndLost();
 		//start game
@@ -422,12 +439,12 @@ public class ChessPanel extends JPanel {
 			this.gameStartImage = ImageUtility.getImage("resource/fivechess/opponent_first.png");
 		}
 		this.selectImage = getSelectImage();
-//		this.startGameTask = new StartGameTask(this);
-//		this.timer = new Timer();
-//		timer.schedule(this.startGameTask, 0, 20);
+		this.startGameTask = new StartGameTask(this);
+		this.timer = new Timer();
+		timer.schedule(this.startGameTask, 0, 20);
 	}
 	
-	//轮到自己下棋
+	//my turn
 	public void myTurn() {
 		this.selectImage = getSelectImage();
 		this.myTurn = true;

@@ -1,8 +1,10 @@
 package server;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import utilities.Constant;
@@ -18,6 +20,9 @@ public class GameInfo {
 	
 	public static Table[][] tables;
 
+	public static HashSet<String> readyListSet;
+	
+	public final static int LINK_COUNT = 5;
 	/**
 	 * chess array in table 
 	 * key is table number
@@ -42,6 +47,8 @@ public class GameInfo {
 				tableNumber++;
 			}
 		}
+		
+		readyListSet = new HashSet<String>();
 	}
 	
 	/**

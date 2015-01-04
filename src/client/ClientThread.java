@@ -128,11 +128,13 @@ public class ClientThread extends Thread{
 					gamehallListFrameInstance.setVisible(false);
 					
 					userBack = response.getUser();
+
 					//build game hall frame
 					Table[][] tables = response.getTables();
 					Vector<GameUser> users = response.getUserList();
 					GameUser gameUser = new GameUser(userBack, gameSelected);
 					gameUser.setSocket(socket);
+					gameUser.setServerSocket(userBack.getServerSocket());
 //					System.out.println("2 user" + user.getId());
 //					System.out.println("2" + gameUser.getId());
 //					if (gameUser.getSocket() == null)
@@ -167,12 +169,17 @@ public class ClientThread extends Thread{
 					break;
 					
 				case ResponseResCode.UPDATE_GAMEFRAME:
+					System.out.println("Update game frame");
+					
+					fivechessGameFrameInstance.newUserIn(response.getGameUser());
+					fivechessGameFrameInstance.setTable(response.getTable());
+					fivechessGameFrameInstance.refreshUI();
 					
 					break;
 					
 				case ResponseResCode.GAME_START:
-					
-					//¥¥Ω®∆Â≈Ã
+					System.out.println("Client received start command!");
+					//Build chess board
 					Chess[][] chessArray = new Chess[Constant.CHESS_BOARD_X_SIZE][Constant.CHESS_BOARD_Y_SIZE];
 					for (int i = 0; i < chessArray.length; i++) {
 						for (int j = 0; j < chessArray[i].length; j++) {
@@ -191,6 +198,32 @@ public class ClientThread extends Thread{
 					
 					break;
 					
+				case ResponseResCode.GAME_WIN:
+					
+					gamePanel= fivechessGameFrameInstance.getGamePanel();
+					
+					gamePanel.win();
+					
+					break;
+					
+				case ResponseResCode.GAME_LOSE:
+					
+					gamePanel= fivechessGameFrameInstance.getGamePanel();
+					
+					gamePanel.lost();
+					
+					break;
+					
+				case ResponseResCode.OPPONENT_MOVED:
+					
+					gamePanel= fivechessGameFrameInstance.getGamePanel();
+					
+					Chess chess = response.getChess();
+					
+					gamePanel.setChessinBoard(chess);
+					gamePanel.myTurn();
+					
+					break;
 				default:
 					System.out.println("No action will take");
 					break;
