@@ -47,4 +47,10 @@ public class ResponseResCode {
 	//update tables
 	public final static int UPDATE_TABLES = 20;
 	
+	//game start
+	public final static int GAME_START = 22;
+	
+	//update game frame
+	public final static int UPDATE_GAMEFRAME = 24;
+	
 }

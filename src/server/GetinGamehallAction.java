@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import utilities.GameInfo;
 import utilities.GameUser;
 import utilities.Response;
 import utilities.ResponseResCode;

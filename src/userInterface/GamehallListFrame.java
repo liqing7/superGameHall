@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import client.ClientThread;
-import utilities.GameInfo;
+import server.GameInfo;
 import utilities.GameNameList;
 import utilities.Request;
 import utilities.RequestOpCode;

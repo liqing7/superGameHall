@@ -95,7 +95,7 @@ public class ServerThread extends Thread {
 					break;
 					
 				case RequestOpCode.GAME_READY:
-					new GameReadyAction(request.getUser()).execute();
+					new GameReadyAction(request, socket).execute();
 					break;
 					
 				case RequestOpCode.GAME_MOVE:

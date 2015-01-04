@@ -38,4 +38,6 @@ public class RequestOpCode {
 	//give up
 	public final static int GIVE_UP = 9;
 	
+	//leave
+	public final static int LEAVE = 10;
 }

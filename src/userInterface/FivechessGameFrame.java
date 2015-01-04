@@ -3,6 +3,8 @@ package userInterface;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,10 +17,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import utilities.GameUser;
+import utilities.RequestOpCode;
 import utilities.Table;
 import utilities.XStreamUtil;
 import utilities.Request;
 
+/**
+ * five chess game frame
+ * @author LiQing
+ *
+ */
 public class FivechessGameFrame extends JFrame {
 
 //	//User list
@@ -82,12 +90,60 @@ public class FivechessGameFrame extends JFrame {
 		int perfectHeight = 768 - 30;
 		this.setPreferredSize(new Dimension(perfectWidth, perfectHeight));
 		this.pack();
-
+		this.setVisible(true);
 		
 		initListeners();
 	
 	}
 	
+	public JLabel getUserTableJLabel() {
+		return userTableJLabel;
+	}
+
+	public void setUserTableJLabel(JLabel userTableJLabel) {
+		this.userTableJLabel = userTableJLabel;
+	}
+
+	public JLabel getChatLabel() {
+		return chatLabel;
+	}
+
+	public void setChatLabel(JLabel chatLabel) {
+		this.chatLabel = chatLabel;
+	}
+
+	public ChessPanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public void setGamePanel(ChessPanel gamePanel) {
+		this.gamePanel = gamePanel;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+	public GameUser getGameUser() {
+		return gameUser;
+	}
+
+	public void setGameUser(GameUser gameUser) {
+		this.gameUser = gameUser;
+	}
+
+	public Vector<GameUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Vector<GameUser> users) {
+		this.users = users;
+	}
+
 	private void initListeners() {
 		// TODO Auto-generated method stub
 		this.addWindowListener(new WindowAdapter() {
@@ -141,31 +197,38 @@ public class FivechessGameFrame extends JFrame {
 
 	//User leave, send message to server
 	public void leave() {
-		int tableNumber = this.table.getTableNumber();
-		String userId = this.user.getId();
-		Request request = new Request("org.crazyit.gamehall.fivechess.server.action.LeaveGameAction", 
-				"org.crazyit.gamehall.fivechess.client.action.game.LeaveGameAction");
-		request.setParameter("userId", userId);
-		request.setParameter("tableNumber", tableNumber);
-		//设置对手接收到退出后的处理类
-		request.setParameter("exitAction", 
-				"org.crazyit.gamehall.fivechess.client.action.game.OpponentExitAction");
-		destroyUI();
-		//设置玩家准备状态
-		this.user.setReady(false);
-		this.user.getPrintStream().println(XStreamUtil.toXML(request));
+
+		Request request = new Request(RequestOpCode.LEAVE, gameUser);
+		request.setTable(table);;
+		request.setReady(false);
+		
+		//set user state
+		this.gameUser.setReady(false);
+		String reqString = request.toXML();
+		
+		DataOutputStream outstream;
+		try {
+			outstream = new DataOutputStream(gameUser.getSocket().getOutputStream());
+			outstream.writeBytes(reqString + "\n");
+			
+			System.out.println(reqString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	
 	}
 	
 	//从桌子对象中得到玩家信息(不包括当前玩家)
-	private List<ChessUser> getUsers(Table table, ChessUser user) {
-		List<ChessUser> users = new ArrayList<ChessUser>();
-		ChessUser u1 = table.getLeftSeat().getUser();
-		ChessUser u2 = table.getRightSeat().getUser();
+	private Vector<GameUser> getUsers(Table table, GameUser user) {
+		Vector<GameUser> users = new Vector<GameUser>();
+		GameUser u1 = table.getLeftSeat().getUser();
+		GameUser u2 = table.getRightSeat().getUser();
 		if (u1 != null) users.add(u1);
 		if (u2 != null) users.add(u2);
 		//从集合中去掉当前玩家
 		for (Iterator it = users.iterator(); it.hasNext();) {
-			ChessUser u = (ChessUser)it.next();
+			GameUser u = (GameUser)it.next();
 			if (u.getId().equals(user.getId())) {
 				it.remove();
 			}

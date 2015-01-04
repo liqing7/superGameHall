@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.Vector;
 
 import utilities.Constant;
-import utilities.GameInfo;
 import utilities.GameUser;
 import utilities.Request;
 import utilities.Response;
@@ -15,8 +14,12 @@ import utilities.Table;
 import utilities.User;
 
 public class GetinSeatAction implements ServerAction{
+	
 	//user
 	private User user;
+	
+	//game user
+	private GameUser gameUser;
 	
 	private Socket socket;
 	
@@ -27,7 +30,7 @@ public class GetinSeatAction implements ServerAction{
 		this.socket = socket;
 		this.request = request;
 		this.user = request.getUser();
-		
+		this.gameUser = request.getGameUser();
 	}
 	
 	public void execute() {
@@ -48,6 +51,8 @@ public class GetinSeatAction implements ServerAction{
 			
 			//build success response object
 			Response response = new Response(ResponseResCode.GET_IN_SEAT_SUCC, user);
+			response.setTable(table);
+			response.setGameUser(gameUser);
 			String responseString = response.toXML();
 			
 			DataOutputStream outStream;

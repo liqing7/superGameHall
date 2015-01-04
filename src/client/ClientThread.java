@@ -11,7 +11,10 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import userInterface.ChessPanel;
+import userInterface.FivechessGameFrame;
 import userInterface.GameHallFrame;
+import userInterface.GameResourceLoader;
 import userInterface.GamehallListFrame;
 import userInterface.LoginFrame;
 import utilities.Constant;
@@ -21,6 +24,7 @@ import utilities.ResponseResCode;
 import utilities.Table;
 import utilities.User;
 import utilities.XStreamUtil;
+import utilities.Chess;
 
 /**
  * Client thread
@@ -55,6 +59,9 @@ public class ClientThread extends Thread{
 	
 	//Game hall frame
 	private GameHallFrame gamehallFrameInstance;
+	
+	//five chess game frame
+	private FivechessGameFrame fivechessGameFrameInstance;
 	
 	public ClientThread(User user, Socket socket, DataOutputStream outputStream, LoginFrame loginFrame) {
 		ClientThread.user = user;
@@ -137,8 +144,10 @@ public class ClientThread extends Thread{
 					
 				case ResponseResCode.GET_IN_SEAT_SUCC:
 					System.out.println("Get in seat succeed");
-					
+					Table table = response.getTable();
+					GameUser gameUser2 = response.getGameUser();
 					//build game frame
+					fivechessGameFrameInstance = new FivechessGameFrame(table, gameUser2);
 					
 					break;
 					
@@ -157,7 +166,33 @@ public class ClientThread extends Thread{
 					gamehallFrameInstance.repaint();
 					break;
 					
+				case ResponseResCode.UPDATE_GAMEFRAME:
+					
+					break;
+					
+				case ResponseResCode.GAME_START:
+					
+					//¥¥Ω®∆Â≈Ã
+					Chess[][] chessArray = new Chess[Constant.CHESS_BOARD_X_SIZE][Constant.CHESS_BOARD_Y_SIZE];
+					for (int i = 0; i < chessArray.length; i++) {
+						for (int j = 0; j < chessArray[i].length; j++) {
+							int beginX = (GameResourceLoader.CHESS_BOARD_X) - (Constant.CHESS_WIDTH/2) 
+								+ GameResourceLoader.CHESS_BOARD_CELL_WIDTH * i;
+							int beginY = (GameResourceLoader.CHESS_BOARD_Y) - (Constant.CHESS_HEIGHT/2) 
+								+ GameResourceLoader.CHESS_BOARD_CELL_HEIGHT * j;
+							chessArray[i][j] = new Chess(beginX, beginY, i, j, null);
+						}
+					}
+					
+					ChessPanel gamePanel = fivechessGameFrameInstance.getGamePanel();
+
+					gamePanel.setChessArray(chessArray);
+					gamePanel.startGame();
+					
+					break;
+					
 				default:
+					System.out.println("No action will take");
 					break;
 				}
 				

@@ -26,6 +26,11 @@ import utilities.XStreamUtil;
 import utilities.Request;
 
 
+/**
+ * chess panel
+ * @author LiQing
+ *
+ */
 public class ChessPanel extends JPanel {
 
 	//chess array
@@ -39,10 +44,10 @@ public class ChessPanel extends JPanel {
 	private Image currentToolImage;
 	
 	//start button range
-	private Rectangle startRange = new Rectangle(318, 630, 73, 40);
+	private Rectangle startRange = new Rectangle(185, 630, 73, 40);
 	
 	//draw button range
-	private Rectangle drawRange = new Rectangle(185, 630, 73, 40);
+	private Rectangle drawRange = new Rectangle(318, 630, 73, 40);
 	
 	//lost button range
 	private Rectangle lostRange = new Rectangle(460, 630, 73, 40);
@@ -468,11 +473,11 @@ public class ChessPanel extends JPanel {
 		drawLeftUser(g, lu);
 		//draw right user
 		drawRightUser(g, ru);
-		//draw toolbar
+		//draw tool bar
 		g.drawImage(this.currentToolImage, 160, 630, this);
 		//draw start image
 		g.drawImage(this.gameStartImage, 208, this.startImageY, this);
-		//draw chessboard
+		//draw chess board
 		paintChessBoard(g);
 		//judge if my turn
 		if (this.myTurn) {
@@ -480,6 +485,38 @@ public class ChessPanel extends JPanel {
 		}
 	}
 	
+	public Chess[][] getChessArray() {
+		return chessArray;
+	}
+
+	public void setChessArray(Chess[][] chessArray) {
+		this.chessArray = chessArray;
+	}
+
+	public GameUser getUser() {
+		return user;
+	}
+
+	public void setUser(GameUser user) {
+		this.user = user;
+	}
+
+	public boolean isMyTurn() {
+		return myTurn;
+	}
+
+	public void setMyTurn(boolean myTurn) {
+		this.myTurn = myTurn;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+	public void setGaming(boolean gaming) {
+		this.gaming = gaming;
+	}
+
 	//paint chess board
 	private void paintChessBoard(Graphics g) {
 		if (this.chessArray != null) {
@@ -507,6 +544,8 @@ public class ChessPanel extends JPanel {
 			g.drawString(lu.getUsername(), 30, 360);//draw user name
 
 		}
+		//draw black chess disk
+		g.drawImage(GameResourceLoader.getBLACK_DISK(), 25, 230, this);
 	}
 	
 	//Draw right user
@@ -515,6 +554,8 @@ public class ChessPanel extends JPanel {
 			g.drawString(ru.getUsername(), 645, 360);//draw user name
 
 		}
+		//draw white chess disk
+		g.drawImage(GameResourceLoader.getWHITE_DISK(), 640, 230, this);
 	}
 	
 	public boolean isGaming() {

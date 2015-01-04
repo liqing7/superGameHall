@@ -15,9 +15,31 @@ public class Response {
 	//user
 	private User user;
 	
+	//game user
+	private GameUser gameUser;
+	
+	public GameUser getGameUser() {
+		return gameUser;
+	}
+
+	public void setGameUser(GameUser gameUser) {
+		this.gameUser = gameUser;
+	}
+
 	//game selected;
 	private String gameSeleted;
 	
+	//user's table
+	private Table table;
+	
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
 	//user list
 	private Vector<GameUser> userList;
 	
@@ -26,6 +48,11 @@ public class Response {
 	public Response(int resCode, User user) {
 		this.resCode = resCode;
 		this.user = user;
+	}
+	
+	public Response(int resCode, GameUser user) {
+		this.resCode = resCode;
+		this.gameUser = user;
 	}
 	
 	public int getResCode() {

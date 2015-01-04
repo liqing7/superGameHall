@@ -157,7 +157,7 @@ public class GameResourceLoader {
 	}
 
 	//下棋前的黑色棋选择图片
-	private final static Image BLACK_SELECT_PLAY_IMAGE = ImageUtility.getImage("images/fivechess/black-play-select.png");
+	private final static Image BLACK_SELECT_PLAY_IMAGE = ImageUtility.getImage("resource/Fivechess/black-play-select.png");
 	
 	public static Image getBlackSelectPlayImage() {
 		return BLACK_SELECT_PLAY_IMAGE;
@@ -168,7 +168,7 @@ public class GameResourceLoader {
 	}
 
 	//下棋前的白色棋选择图片
-	private final static Image WHITE_SELECT_PLAY_IMAGE = ImageUtility.getImage("images/fivechess/white-play-select.png");
+	private final static Image WHITE_SELECT_PLAY_IMAGE = ImageUtility.getImage("resource/Fivechess/white-play-select.png");
 	
 
 
