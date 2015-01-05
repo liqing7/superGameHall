@@ -11,7 +11,7 @@ public class GameNameList {
 		
 		gameNameList.add("Five Chess");
 		gameNameList.add("Shooting");
-		gameNameList.add("Single Five Chess");
+		gameNameList.add("Single Player Five Chess");
 		gameNameList.add("Null");
 		gameNameList.add("Null");
 	}

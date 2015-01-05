@@ -19,6 +19,9 @@ import javax.swing.JTextField;
 
 import client.ClientThread;
 import server.GameInfo;
+import singlePlayerFiveChess.SinglePlayerFivechess;
+import singlePlayerFiveChess.SinglePlayerMainFrame;
+import singlePlayerFiveChess2.Application1;
 import utilities.GameNameList;
 import utilities.Request;
 import utilities.RequestOpCode;
@@ -186,6 +189,15 @@ public class GamehallListFrame extends JFrame{
 	private void Getin() {
 
 		for (JRadioButton tempButton : gameRadioList){
+			if (tempButton.isSelected() && tempButton.getText().equalsIgnoreCase("Single Player Five Chess"))
+			{
+				SinglePlayerMainFrame single = new SinglePlayerMainFrame();
+
+				//Application1 single = new Application1();
+				this.setVisible(false);
+				break;
+				
+			} else 
 			if (tempButton.isSelected()) {
 				String selectedGame = tempButton.getText();
 				System.out.println(selectedGame);				
