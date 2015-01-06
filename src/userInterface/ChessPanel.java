@@ -1,6 +1,8 @@
 package userInterface;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -558,6 +560,9 @@ public class ChessPanel extends JPanel {
 	//Draw left user
 	private void drawLeftUser(Graphics g, GameUser lu) {
 		if (lu != null) {
+			Font myFont = new Font("Baseline", Font.BOLD, 20);
+			g.setFont(myFont);
+			g.setColor(Color.YELLOW);
 			g.drawString(lu.getUsername(), 30, 360);//draw user name
 
 		}
@@ -568,6 +573,9 @@ public class ChessPanel extends JPanel {
 	//Draw right user
 	private void drawRightUser(Graphics g, GameUser ru) {
 		if (ru != null) {
+			Font myFont = new Font("Baseline", Font.BOLD, 20);
+			g.setFont(myFont);
+			g.setColor(Color.YELLOW);
 			g.drawString(ru.getUsername(), 645, 360);//draw user name
 
 		}

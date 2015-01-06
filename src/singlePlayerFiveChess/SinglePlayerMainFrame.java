@@ -2,6 +2,11 @@ package singlePlayerFiveChess;
 
 import javax.swing.JFrame;
 
+/**
+ * Single player five chess main frame
+ * @author LiQing
+ *
+ */
 public class SinglePlayerMainFrame {
 
 	public SinglePlayerMainFrame() {

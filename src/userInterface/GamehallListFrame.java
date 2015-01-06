@@ -191,9 +191,9 @@ public class GamehallListFrame extends JFrame{
 		for (JRadioButton tempButton : gameRadioList){
 			if (tempButton.isSelected() && tempButton.getText().equalsIgnoreCase("Single Player Five Chess"))
 			{
-				SinglePlayerMainFrame single = new SinglePlayerMainFrame();
+				//SinglePlayerMainFrame single = new SinglePlayerMainFrame();
 
-				//Application1 single = new Application1();
+				Application1 single = new Application1();
 				this.setVisible(false);
 				break;
 				

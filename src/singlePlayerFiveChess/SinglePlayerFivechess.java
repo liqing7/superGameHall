@@ -5,6 +5,12 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import javax.swing.*; 
+
+/**
+ * single player panel
+ * @author LiQing
+ *
+ */
 public class SinglePlayerFivechess extends JPanel implements ActionListener,MouseListener,MouseMotionListener,ItemListener
 {
 	int color_Qizi=0;//棋子的颜色标识 0:黑子 1 :白子
@@ -19,8 +25,8 @@ public class SinglePlayerFivechess extends JPanel implements ActionListener,Mous
 	Evaluate evaluatec=new Evaluate();
 	Sort sort=new Sort();
 	
-	Button b1=new Button("游戏开始");
-	Button b2=new Button("重置游戏");
+	Button b1=new Button("Game Start");
+	Button b2=new Button("Restart");
 	Label lblWin=new Label(" ");
 	Label label=new Label(" ");
 	Checkbox ckbHB[]=new Checkbox[2];
@@ -66,9 +72,9 @@ public class SinglePlayerFivechess extends JPanel implements ActionListener,Mous
 		b2.setBounds(330,110,80,30);
 		b2.addActionListener(this);
 		
-		ckbHB[0]=new Checkbox("人     先",ckgHB,false);
+		ckbHB[0]=new Checkbox("You First",ckgHB,false);
 		ckbHB[0].setBounds(320,30,60,30);
-		ckbHB[1]=new Checkbox("电脑先",ckgHB,false);
+		ckbHB[1]=new Checkbox("Computer First",ckgHB,false);
 		ckbHB[1].setBounds(380,30,60,30);
 		add(ckbHB[0]);	
 		add(ckbHB[1]);		

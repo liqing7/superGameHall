@@ -88,6 +88,17 @@ public class GameResourceLoader {
 	//Chess board image
 	private static Image chessboard = ImageUtility.getImage("resource/Fivechess/fiveStoneBoard.jpg");
 	
+	//Chess board image for single player
+	private static Image chessboard_single = ImageUtility.getImage("resource/Fivechess/fiveStoneBoard_Single.jpg");
+	
+	public static Image getChessboard_single() {
+		return chessboard_single;
+	}
+
+	public static void setChessboard_single(Image chessboard_single) {
+		GameResourceLoader.chessboard_single = chessboard_single;
+	}
+
 	//background
 	private static Image background = ImageUtility.getImage("resource/Fivechess/background.png");
 	

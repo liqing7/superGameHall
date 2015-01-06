@@ -1,14 +1,22 @@
 package singlePlayerFiveChess2;
 
 import javax.swing.JPanel;
+
 import java.awt.Graphics2D;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.Color;
+
 import javax.swing.JOptionPane;
+
 import java.io.InputStream;
+
 import sun.audio.*;
+import userInterface.GameResourceLoader;
+import utilities.Constant;
+
 import java.awt.event.MouseMotionAdapter;
 
 /**
@@ -24,7 +32,7 @@ import java.awt.event.MouseMotionAdapter;
  * @version 2.1
  */
 public class Canvas extends JPanel {
-    int size=16; //棋盘大小
+    int size=15; //棋盘大小
     int[][] board=new int[size][size]; //棋盘数据 0:无棋子 1:用户棋子 2:AI棋子
     Color aiColor, userColor; //棋子颜色
     int userX, userY; //用户落子位置
@@ -67,32 +75,34 @@ public class Canvas extends JPanel {
         for(int i=0;i<size;i++){
           for(int j=0;j<size;j++){
             if(board[i][j]==1){ //用户棋子
-              drawChessman(draw,i*40,j*40,userColor);
+              drawChessman(draw, i*37 + 37, j*37 + 37,userColor);
             }
             else if(board[i][j]==2){ //AI棋子
-              drawChessman(draw,i*40,j*40,aiColor);
+              drawChessman(draw, i*37 + 37, j*37 + 37,aiColor);
             }
           }
         }
         //突出AI上一个落子位置
         if(lastAvail){
-          draw.setColor(Color.lightGray);
-          draw.fillOval(lastX*40,lastY*40,30,30);
+          //draw.setColor(Color.lightGray);
+          //draw.fillOval(lastX*40,lastY*40,30,30);
+    	  g.drawImage(getChessImage(Constant.WHITE), 
+    			  lastX*37 + 37, lastY*37 + 37, null);
         }
 
         //绘制禁手提示位置
         for(int i=0;i<5;i++){
           if(forbidAvail[i]){
             draw.setColor(Color.magenta);
-            draw.drawOval(forbidX[i]*40,forbidY[i]*40,30,30);
-            draw.drawString("禁手",forbidX[i]*40+5,forbidY[i]*40+20);
+            draw.drawOval(forbidX[i]*37 + 37,forbidY[i]*37 + 37,30,30);
+            draw.drawString("禁手",forbidX[i]*37+5 + 37,forbidY[i]*37 + 37+20);
           }
         }
 
         //显示结束直线
         if(drawEndLine){
           draw.setColor(Color.magenta);
-          draw.drawLine(endX1*40+15,endY1*40+15,endX2*40+15,endY2*40+15);
+          draw.drawLine(endX1*37+15 + 37,endY1*37+15 + 37,endX2*37+15 + 37,endY2*37+15 + 37);
         }
       }
     }
@@ -123,16 +133,20 @@ public class Canvas extends JPanel {
      * @param g Graphics2D对象
      */
     public void drawBoard(Graphics2D g){
-      for(int i=0;i<size;i++){
-        //绘制边框
-        g.setColor(Color.blue);
-        g.drawLine(15,15+i*40,15+(size-1)*40,15+i*40);
-        g.drawLine(15+i*40,15,15+i*40,15+(size-1)*40);
-        //绘制标记
-        g.setColor(Color.black);
-        g.drawString(i+"", 12+i*40, 10);
-        g.drawString(i+"", 2, 18+i*40);
-      }
+      
+		g.drawImage(GameResourceLoader.getBackground(), 0, 0, this.getWidth(), this.getHeight(), this);
+		g.drawImage(GameResourceLoader.getChessboard_single(), 30, 29, this);
+		
+		for(int i = 0; i < size; i++) {
+			//绘制边框
+			g.setColor(Color.blue);
+			g.drawLine(15,15+i*37,15+(size-1)*37,15+i*37);
+			g.drawLine(15+i*37,15,15+i*37,15+(size-1)*37);
+			//绘制标记
+			g.setColor(Color.black);
+			g.drawString(i+"", 12+i*37, 10);
+			g.drawString(i+"", 2, 18+i*37);
+		}
     }
 
     /**
@@ -144,9 +158,23 @@ public class Canvas extends JPanel {
      */
     public void drawChessman(Graphics2D g, int i, int j, Color c){
       g.setColor(c);
-      g.fillOval(i,j,30,30);
+      //g.fillOval(i,j,30,30);
+      if (c == Color.BLACK) {
+    	  g.drawImage(getChessImage(Constant.BLACK), 
+  				i, j, null);
+      } else {
+    	  g.drawImage(getChessImage(Constant.WHITE), 
+  				i, j, null);
+      }
+      
     }
 
+	//Return chess image according to color
+	private Image getChessImage(String color) {
+		if (color.equals(Constant.BLACK)) return GameResourceLoader.BLACK_CHESS;
+		else return GameResourceLoader.WHITE_CHESS;
+	}
+	
     /**
      * <p>Description: 设置AI最后落子坐标</p>
      * @param i AI最后落子横坐标
@@ -256,36 +284,36 @@ public class Canvas extends JPanel {
       }
 
       if(e.getButton()==e.BUTTON1){ //鼠标左键点击
-        if(Frame1.turn==0&&avail&&board[(int)(tempX+5)/40][(int)(tempY+5)/40]==0){ //轮到用户下子
-          for(int i=0;i<5;i++){
-            if(forbidAvail[i]){
-              if(forbidX[i]==(int)(tempX+5)/40&&forbidY[i]==(int)(tempY+5)/40){
-                forbidStyle=true;
-              }
-            }
-          }
+    	  if(Frame1.turn==0&&avail&&board[(int)(tempX+5)/40][(int)(tempY+5)/40]==0){ //轮到用户下子
+    		  for(int i=0;i<5;i++){
+    			  if(forbidAvail[i]){
+    				  if(forbidX[i]==(int)(tempX+5)/40&&forbidY[i]==(int)(tempY+5)/40){
+    					  forbidStyle=true;
+    				  }
+    			  }
+    		  }
 
-          if(forbidStyle){ //检测到禁手
-            Frame1.forbidStyle++;
-            forbidStyle=false;
-            //playSound(3);
-            JOptionPane.showMessageDialog(null, "<html><b>该点为<font color=blue>禁手</font>位"
-                 +",<font color=blue>游戏规则</font>可以查看<font color=purple>帮助</font>", "落子无效", JOptionPane.INFORMATION_MESSAGE);
-          }
-          else{
-            userX=(int)(tempX+5)/40;
-            userY=(int)(tempY+5)/40;
-            //playSound(1);
-            Frame1.turn=1;
-          }
-        }
-        else if(!avail){ //未选择开始
-          //playSound(3);
-          JOptionPane.showMessageDialog(null, "<html><b>请在菜单中单击<font color=purple>开始</font>进行游戏", "开始游戏", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(board[(int)(tempX+5)/40][(int)(tempY+5)/40]!=0){
-         // playSound(3);
-        }
+    		  if(forbidStyle){ //检测到禁手
+    			  Frame1.forbidStyle++;
+    			  forbidStyle=false;
+    			  //playSound(3);
+    			  JOptionPane.showMessageDialog(null, "<html><b>该点为<font color=blue>禁手</font>位"
+    	            +",<font color=blue>游戏规则</font>可以查看<font color=purple>帮助</font>", "落子无效", JOptionPane.INFORMATION_MESSAGE);
+    		  }
+    		  else{
+    			  userX=(int)(tempX+5)/40;
+    			  userY=(int)(tempY+5)/40;
+    			  //playSound(1);
+    			  Frame1.turn=1;
+    		  }
+    	  }
+    	  else if(!avail){ //未选择开始
+    		  //playSound(3);
+    		  JOptionPane.showMessageDialog(null, "<html><b>请在菜单中单击<font color=purple>开始</font>进行游戏", "开始游戏", JOptionPane.INFORMATION_MESSAGE);
+    	  }
+    	  else if(board[(int)(tempX+5)/40][(int)(tempY+5)/40]!=0){
+    		  // playSound(3);
+    	  }
       }
       else if(e.getButton()==e.BUTTON3){ //鼠标右键点击
       }
