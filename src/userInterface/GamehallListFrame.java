@@ -19,9 +19,7 @@ import javax.swing.JTextField;
 
 import client.ClientThread;
 import server.GameInfo;
-import singlePlayerFiveChess.SinglePlayerFivechess;
-import singlePlayerFiveChess.SinglePlayerMainFrame;
-import singlePlayerFiveChess2.Application1;
+import singlePlayerFiveChess.SinglePlayerFiveChess;
 import utilities.GameNameList;
 import utilities.Request;
 import utilities.RequestOpCode;
@@ -193,7 +191,7 @@ public class GamehallListFrame extends JFrame{
 			{
 				//SinglePlayerMainFrame single = new SinglePlayerMainFrame();
 
-				Application1 single = new Application1();
+				SinglePlayerFiveChess single = new SinglePlayerFiveChess();
 				this.setVisible(false);
 				break;
 				

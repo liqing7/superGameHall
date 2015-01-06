@@ -1,4 +1,4 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.*;
 
@@ -12,16 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 /**
- * <p>Title: 类说明</p>
+ * Show AI
+ * @author Qing
  *
- * <p>Description: AI演示面板</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
 public class AIShow extends JFrame {
     int size=16; //表格大小

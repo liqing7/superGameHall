@@ -1,4 +1,4 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.*;
 

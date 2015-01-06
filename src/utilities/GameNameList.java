@@ -10,7 +10,7 @@ public class GameNameList {
 		gameNameList = new Vector<String>();
 		
 		gameNameList.add("Five Chess");
-		gameNameList.add("Shooting");
+		gameNameList.add("Null");
 		gameNameList.add("Single Player Five Chess");
 		gameNameList.add("Null");
 		gameNameList.add("Null");

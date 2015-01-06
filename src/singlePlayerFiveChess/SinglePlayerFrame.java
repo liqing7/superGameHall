@@ -1,4 +1,4 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.Dimension;
 
@@ -22,18 +22,11 @@ import java.net.URL;
 import java.util.Random;
 
 /**
- * <p>Title: 类说明</p>
+ * Single Player Game Main Frame
+ * @author Qing
  *
- * <p>Description: 程序主类</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
-public class Frame1 extends JFrame {
+public class SinglePlayerFrame extends JFrame {
     int size=16; //棋盘大小
     int[][] board=new int[size][size]; //棋盘数据 0:无棋子 1:用户棋子 2:AI棋子
     int time=0;; //游戏时间
@@ -74,7 +67,7 @@ public class Frame1 extends JFrame {
     AIChess ai=new AIChess(); //AI对象
     AIShow show=new AIShow();//AI分析演示对象
     Result result=new Result(); //结果显示对象
-    Information info=new Information(); //关于信息对象
+    //Information info=new Information(); //关于信息对象
     Rule rule=new Rule(); //规则信息对象
     Retrospect retro=new Retrospect(); //回顾演示控制对象
     URL url; //资源位置对象
@@ -98,7 +91,7 @@ public class Frame1 extends JFrame {
     JSplitPane jSplitPane1 = new JSplitPane();
     JMenuItem jMenuItem8 = new JMenuItem();
     JMenuItem jMenuItem7 = new JMenuItem();
-    public Frame1() {
+    public SinglePlayerFrame() {
         try {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             jbInit();
@@ -120,46 +113,46 @@ public class Frame1 extends JFrame {
         contentPane.setLayout(null);
         this.setJMenuBar(jMenuBar1);
         this.setResizable(false);
-        setSize(new Dimension(820, 715));
+        setSize(new Dimension(670, 715));
         setTitle("Single Player Five Chess");
         canvas.setBounds(new Rectangle(15, 15, 630, 630));
         jPanel1.setBorder(BorderFactory.createEtchedBorder());
         jPanel1.setBounds(new Rectangle(660, 30, 135, 601));
         jPanel1.setLayout(null);
-        jMenu1.setText("游戏");
-        jMenu2.setText("帮助");
+        jMenu1.setText("Game");
+        jMenu2.setText("Help");
 //        jMenuItem1.setToolTipText("程序信息");
 //        jMenuItem1.setText("关于");
-//        jMenuItem1.addActionListener(new Frame1_jMenuItem1_actionAdapter(this));
-        jMenuItem2.setToolTipText("开始游戏");
-        jMenuItem2.setText("开始");
-        jMenuItem2.addActionListener(new Frame1_jMenuItem2_actionAdapter(this));
-        jMenuItem3.setToolTipText("退出游戏");
-        jMenuItem3.setText("结束");
-        jMenuItem3.addActionListener(new Frame1_jMenuItem3_actionAdapter(this));
-        jMenuItem4.setToolTipText("五子棋的游戏规则");
-        jMenuItem4.setText("规则");
-        jMenuItem4.addActionListener(new Frame1_jMenuItem4_actionAdapter(this));
+//        jMenuItem1.addActionListener(new SinglePlayerFrame_jMenuItem1_actionAdapter(this));
+        jMenuItem2.setToolTipText("Start");
+        jMenuItem2.setText("Start");
+        jMenuItem2.addActionListener(new SinglePlayerFrame_jMenuItem2_actionAdapter(this));
+        jMenuItem3.setToolTipText("Quit");
+        jMenuItem3.setText("End");
+        jMenuItem3.addActionListener(new SinglePlayerFrame_jMenuItem3_actionAdapter(this));
+        jMenuItem4.setToolTipText("Rules");
+        jMenuItem4.setText("Rules");
+        jMenuItem4.addActionListener(new SinglePlayerFrame_jMenuItem4_actionAdapter(this));
         jMenuItem6.setEnabled(false);
-        jMenuItem6.setToolTipText("恢复到上一步的棋盘状态");
-        jMenuItem6.setText("悔棋");
-        jMenuItem6.addActionListener(new Frame1_jMenuItem6_actionAdapter(this));
+        jMenuItem6.setToolTipText("Withdraw");
+        jMenuItem6.setText("Withdraw");
+        jMenuItem6.addActionListener(new SinglePlayerFrame_jMenuItem6_actionAdapter(this));
         jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setDividerSize(10);
         jSplitPane1.setOneTouchExpandable(true);
         jSplitPane1.setBounds(new Rectangle(10, 9, 115, 580));
-        jEditorPane2.setToolTipText("AI表情");
-        jEditorPane1.setToolTipText("AI分析");
+        //jEditorPane2.setToolTipText("AI表情");
+        //jEditorPane1.setToolTipText("AI分析");
         jMenuItem8.setEnabled(false);
-        jMenuItem8.setToolTipText("查看该局棋的行棋过程");
-        jMenuItem8.setText("回顾");
-        jMenuItem8.addActionListener(new Frame1_jMenuItem8_actionAdapter(this));
-        jMenuItem7.setToolTipText("查看AI分析数据");
-        jMenuItem7.setText("AI数据");
-        jMenuItem7.addActionListener(new Frame1_jMenuItem7_actionAdapter(this));
+        jMenuItem8.setToolTipText("Review");
+        jMenuItem8.setText("Review");
+        jMenuItem8.addActionListener(new SinglePlayerFrame_jMenuItem8_actionAdapter(this));
+        jMenuItem7.setToolTipText("Show AI analysis data");
+        jMenuItem7.setText("AI data");
+        jMenuItem7.addActionListener(new SinglePlayerFrame_jMenuItem7_actionAdapter(this));
         contentPane.add(canvas, null);
-        contentPane.add(jPanel1);
-        jPanel1.add(jSplitPane1);
+        //contentPane.add(jPanel1);
+        //jPanel1.add(jSplitPane1);
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
         jMenu2.add(jMenuItem7);
@@ -169,71 +162,64 @@ public class Frame1 extends JFrame {
         jMenu1.add(jMenuItem6);
         jMenu1.add(jMenuItem8);
         jMenu1.add(jMenuItem3);
-        jSplitPane1.add(jScrollPane2, JSplitPane.TOP);
-        jSplitPane1.add(jScrollPane1, JSplitPane.BOTTOM);
-        jScrollPane1.getViewport().add(jEditorPane1);
-        jScrollPane2.getViewport().add(jEditorPane2);
-        jEditorPane1.setContentType("text/html");
-        jEditorPane2.setContentType("text/html");
-        jSplitPane1.setDividerLocation(100);
-        jEditorPane1.setText("<html><b>AI分析</b>");
+//        jSplitPane1.add(jScrollPane2, JSplitPane.TOP);
+//        jSplitPane1.add(jScrollPane1, JSplitPane.BOTTOM);
+//        jScrollPane1.getViewport().add(jEditorPane1);
+//        jScrollPane2.getViewport().add(jEditorPane2);
+//        jEditorPane1.setContentType("text/html");
+//        jEditorPane2.setContentType("text/html");
+//        jSplitPane1.setDividerLocation(100);
+//        jEditorPane1.setText("<html><b>AI分析</b>");
 
         //图片资源
-        url=this.getClass().getResource("pic/nb.gif");
-        aiText1="<html><center><img src="+url+"><br><font color=purple>和我来一局吧</font>";
-        url=this.getClass().getResource("pic/find.gif");
-        aiText2="<html><center><img src="+url+"><br><font color=purple>我再想想看</font>";
-        url=this.getClass().getResource("pic/vic.gif");
-        aiText3="<html><center><img src="+url+"><br><font color=purple>继续加油吧</font>";
-        url=this.getClass().getResource("pic/dk.gif");
-        aiText4="<html><center><img src="+url+"><br><font color=purple>再来一局~</font>";
-        url=this.getClass().getResource("pic/gongxi.gif");
-        aiText5="<html><center><img src="+url+"><br><font color=purple>和气生财哈</font>";
-        url=this.getClass().getResource("pic/why.gif");
-        aiText6="<html><center><img src="+url+"><br><font color=purple>禁手不算</font>";
-        url=this.getClass().getResource("pic/music.gif");
-        aiText7="<html><center><img src="+url+"><br><font color=purple>休息一会</font>";
-        url=this.getClass().getResource("pic/daxiao.gif");
-        aiText8="<html><center><img src="+url+"><br><font color=purple>将军~</font>";
-        url=this.getClass().getResource("pic/bomb.gif");
-        aiText9="<html><center><img src="+url+"><br><font color=purple>好险~</font>";
-        url=this.getClass().getResource("pic/kubi.gif");
-        aiText10="<html><center><img src="+url+"><br><font color=purple>看招</font>";
-        url=this.getClass().getResource("pic/mon.gif");
-        aiText11="<html><center><img src="+url+"><br><font color=purple>貌似有难度</font>";
-        url=this.getClass().getResource("pic/anwei.gif");
-        aiText12="<html><center><img src="+url+"><br><font color=purple>慢慢来哈</font>";
-        url=this.getClass().getResource("pic/df.gif");
-        aiText13="<html><center><img src="+url+"><br><font color=purple>好累~</font>";
-        url=this.getClass().getResource("pic/smile.gif");
-        aiText14="<html><center><img src="+url+"><br><font color=purple>just for fun</font>";
-        url=this.getClass().getResource("pic/yumen.gif");
-        aiText15="<html><center><img src="+url+"><br><font color=purple>计算量太大了</font>";
-        url=this.getClass().getResource("pic/kiss.gif");
-        aiText16="<html><center><img src="+url+"><br><font color=purple>开小差了</font>";
-        url=this.getClass().getResource("pic/kk.gif");
-        aiText17="<html><center><img src="+url+"><br><font color=purple>希望没bug</font>";
-        url=this.getClass().getResource("pic/shy.gif");
-        aiText18="<html><center><img src="+url+"><br><font color=purple>活动一下~</font>";
-        url=this.getClass().getResource("pic/no.gif");
-        aiText19="<html><center><img src="+url+"><br><font color=purple>别急~别急~</font>";
-        url=this.getClass().getResource("pic/yun.gif");
-        aiText20="<html><center><img src="+url+"><br><font color=purple>棋盘快满了</font>";
-        jEditorPane2.setText(aiText1);
+//        url=this.getClass().getResource("pic/nb.gif");
+//        aiText1="<html><center><img src="+url+"><br><font color=purple>和我来一局吧</font>";
+//        url=this.getClass().getResource("pic/find.gif");
+//        aiText2="<html><center><img src="+url+"><br><font color=purple>我再想想看</font>";
+//        url=this.getClass().getResource("pic/vic.gif");
+//        aiText3="<html><center><img src="+url+"><br><font color=purple>继续加油吧</font>";
+//        url=this.getClass().getResource("pic/dk.gif");
+//        aiText4="<html><center><img src="+url+"><br><font color=purple>再来一局~</font>";
+//        url=this.getClass().getResource("pic/gongxi.gif");
+//        aiText5="<html><center><img src="+url+"><br><font color=purple>和气生财哈</font>";
+//        url=this.getClass().getResource("pic/why.gif");
+//        aiText6="<html><center><img src="+url+"><br><font color=purple>禁手不算</font>";
+//        url=this.getClass().getResource("pic/music.gif");
+//        aiText7="<html><center><img src="+url+"><br><font color=purple>休息一会</font>";
+//        url=this.getClass().getResource("pic/daxiao.gif");
+//        aiText8="<html><center><img src="+url+"><br><font color=purple>将军~</font>";
+//        url=this.getClass().getResource("pic/bomb.gif");
+//        aiText9="<html><center><img src="+url+"><br><font color=purple>好险~</font>";
+//        url=this.getClass().getResource("pic/kubi.gif");
+//        aiText10="<html><center><img src="+url+"><br><font color=purple>看招</font>";
+//        url=this.getClass().getResource("pic/mon.gif");
+//        aiText11="<html><center><img src="+url+"><br><font color=purple>貌似有难度</font>";
+//        url=this.getClass().getResource("pic/anwei.gif");
+//        aiText12="<html><center><img src="+url+"><br><font color=purple>慢慢来哈</font>";
+//        url=this.getClass().getResource("pic/df.gif");
+//        aiText13="<html><center><img src="+url+"><br><font color=purple>好累~</font>";
+//        url=this.getClass().getResource("pic/smile.gif");
+//        aiText14="<html><center><img src="+url+"><br><font color=purple>just for fun</font>";
+//        url=this.getClass().getResource("pic/yumen.gif");
+//        aiText15="<html><center><img src="+url+"><br><font color=purple>计算量太大了</font>";
+//        url=this.getClass().getResource("pic/kiss.gif");
+//        aiText16="<html><center><img src="+url+"><br><font color=purple>开小差了</font>";
+//        url=this.getClass().getResource("pic/kk.gif");
+//        aiText17="<html><center><img src="+url+"><br><font color=purple>希望没bug</font>";
+//        url=this.getClass().getResource("pic/shy.gif");
+//        aiText18="<html><center><img src="+url+"><br><font color=purple>活动一下~</font>";
+//        url=this.getClass().getResource("pic/no.gif");
+//        aiText19="<html><center><img src="+url+"><br><font color=purple>别急~别急~</font>";
+//        url=this.getClass().getResource("pic/yun.gif");
+//        aiText20="<html><center><img src="+url+"><br><font color=purple>棋盘快满了</font>";
+//        jEditorPane2.setText(aiText1);
     }
 
     /**
+     * Control Thread
+     * 
+     * @author Qing
      *
-     * <p>Title: 类说明</p>
-     *
-     * <p>Description: 控制线程类</p>
-     *
-     * <p>Copyright: Copyright (c) 2006</p>
-     *
-     * <p>Company: </p>
-     *
-     * @author goodboy
-     * @version 2.1
      */
     class ControlThread extends Thread{
       public void run(){
@@ -345,17 +331,9 @@ public class Frame1 extends JFrame {
     }
 
     /**
+     * Retro Thread
+     * @author Qing
      *
-     * <p>Title: 类说明</p>
-     *
-     * <p>Description: 回顾演示线程类</p>
-     *
-     * <p>Copyright: Copyright (c) 2006</p>
-     *
-     * <p>Company: </p>
-     *
-     * @author goodboy
-     * @version 2.1
      */
     class RetroThread extends Thread{
       int index=0;
@@ -1977,10 +1955,10 @@ public class Frame1 extends JFrame {
       System.exit(0);
     }
 
-    //选择查看关于信息
-    public void jMenuItem1_actionPerformed(ActionEvent e) {
-      info.setVisible(true);
-    }
+//    //选择查看关于信息
+//    public void jMenuItem1_actionPerformed(ActionEvent e) {
+//      info.setVisible(true);
+//    }
 
     //选择查看规则
     public void jMenuItem4_actionPerformed(ActionEvent e) {
@@ -2059,9 +2037,9 @@ public class Frame1 extends JFrame {
 }
 
 
-class Frame1_jMenu4_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenu4_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenu4_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenu4_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2071,9 +2049,9 @@ class Frame1_jMenu4_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem8_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem8_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem8_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem8_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2083,9 +2061,9 @@ class Frame1_jMenuItem8_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem7_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem7_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem7_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem7_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2096,9 +2074,9 @@ class Frame1_jMenuItem7_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem6_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem6_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem6_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem6_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2108,9 +2086,9 @@ class Frame1_jMenuItem6_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem4_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem4_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem4_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem4_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2120,21 +2098,21 @@ class Frame1_jMenuItem4_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem1_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem1_actionAdapter(Frame1 adaptee) {
-        this.adaptee = adaptee;
-    }
+//class SinglePlayerFrame_jMenuItem1_actionAdapter implements ActionListener {
+//    private SinglePlayerFrame adaptee;
+//    SinglePlayerFrame_jMenuItem1_actionAdapter(SinglePlayerFrame adaptee) {
+//        this.adaptee = adaptee;
+//    }
+//
+//    public void actionPerformed(ActionEvent e) {
+//        adaptee.jMenuItem1_actionPerformed(e);
+//    }
+//}
 
-    public void actionPerformed(ActionEvent e) {
-        adaptee.jMenuItem1_actionPerformed(e);
-    }
-}
 
-
-class Frame1_jMenuItem3_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem3_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem3_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem3_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -2144,9 +2122,9 @@ class Frame1_jMenuItem3_actionAdapter implements ActionListener {
 }
 
 
-class Frame1_jMenuItem2_actionAdapter implements ActionListener {
-    private Frame1 adaptee;
-    Frame1_jMenuItem2_actionAdapter(Frame1 adaptee) {
+class SinglePlayerFrame_jMenuItem2_actionAdapter implements ActionListener {
+    private SinglePlayerFrame adaptee;
+    SinglePlayerFrame_jMenuItem2_actionAdapter(SinglePlayerFrame adaptee) {
         this.adaptee = adaptee;
     }
 

@@ -1,4 +1,4 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.*;
 
@@ -75,7 +75,7 @@ public class Retrospect extends JFrame {
         jPanel1.add(jProgressBar1);
         jSlider1.setMinimum(0);
         jSlider1.setMaximum(1500);
-        jSlider1.setValue(Frame1.retroSpeed);
+        jSlider1.setValue(SinglePlayerFrame.retroSpeed);
     }
 
     JPanel jPanel1 = new JPanel();
@@ -87,12 +87,12 @@ public class Retrospect extends JFrame {
 
     //控制回顾演示线程
     public void jButton1_actionPerformed(ActionEvent e) {
-      if(Frame1.retroSuspend){ //暂停演示线程
-        Frame1.retroSuspend=false;
+      if(SinglePlayerFrame.retroSuspend){ //暂停演示线程
+        SinglePlayerFrame.retroSuspend=false;
         jButton1.setText("暂停演示");
       }
       else{ //恢复演示线程
-        Frame1.retroSuspend=true;
+        SinglePlayerFrame.retroSuspend=true;
         jButton1.setText("继续演示");
       }
     }
@@ -116,12 +116,12 @@ public class Retrospect extends JFrame {
 
     //鼠标调节演示速度
     public void jSlider1_mouseReleased(MouseEvent e) {
-      Frame1.retroSpeed=jSlider1.getValue();
+      SinglePlayerFrame.retroSpeed=jSlider1.getValue();
     }
 
     //选择退出回顾演示
     public void jButton2_actionPerformed(ActionEvent e) {
-      Frame1.retroSuspend=true;
+      SinglePlayerFrame.retroSuspend=true;
       setVisible(false);
     }
 }

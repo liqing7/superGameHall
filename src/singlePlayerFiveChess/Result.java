@@ -1,4 +1,4 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.*;
 
@@ -11,16 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 
 /**
- * <p>Title: 类说明</p>
+ * Show Game result
+ * @author Qing
  *
- * <p>Description: 游戏结果显示面板</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
 public class Result extends JFrame {
     String[] column={"统计项目","用户","AI"}; //表格列
@@ -76,7 +69,7 @@ public class Result extends JFrame {
      */
     public void updateData(){
       //统计游戏结果
-      switch(Frame1.winner){
+      switch(SinglePlayerFrame.winner){
         case 0:{
           break;
         }
@@ -98,27 +91,27 @@ public class Result extends JFrame {
       }
 
       //统计行棋步数
-      model.setValueAt(Frame1.userStep,1,1);
-      model.setValueAt(Frame1.aiStep,1,2);
+      model.setValueAt(SinglePlayerFrame.userStep,1,1);
+      model.setValueAt(SinglePlayerFrame.aiStep,1,2);
 
       //统计4子成线数
-      model.setValueAt(Frame1.userFourLine,2,1);
-      model.setValueAt(Frame1.aiFourLine,2,2);
+      model.setValueAt(SinglePlayerFrame.userFourLine,2,1);
+      model.setValueAt(SinglePlayerFrame.aiFourLine,2,2);
 
       //统计3子成线数
-      model.setValueAt(Frame1.userThreeLine,3,1);
-      model.setValueAt(Frame1.aiThreeLine,3,2);
+      model.setValueAt(SinglePlayerFrame.userThreeLine,3,1);
+      model.setValueAt(SinglePlayerFrame.aiThreeLine,3,2);
 
       //统计多线成型数
-      model.setValueAt(Frame1.userMultiLine,4,1);
-      model.setValueAt(Frame1.aiMultiLine,4,2);
+      model.setValueAt(SinglePlayerFrame.userMultiLine,4,1);
+      model.setValueAt(SinglePlayerFrame.aiMultiLine,4,2);
 
       //统计禁手次数
-      model.setValueAt(Frame1.forbidStyle,5,1);
+      model.setValueAt(SinglePlayerFrame.forbidStyle,5,1);
       model.setValueAt(0,5,2);
 
       //统计悔棋次数
-      model.setValueAt(Frame1.regretTime,6,1);
+      model.setValueAt(SinglePlayerFrame.regretTime,6,1);
       model.setValueAt(0,6,2);
     }
 

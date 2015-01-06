@@ -1,21 +1,14 @@
-package singlePlayerFiveChess2;
+package singlePlayerFiveChess;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- * <p>Title: 类说明</p>
+ * AI chess
+ * @author Qing
  *
- * <p>Description: 用户棋子类</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
-public class UserChess {
+public class AIChess {
     int size=16; //棋盘大小
     int[][] preBoard1=new int[size][size]; //预测棋盘1
     int[][] preBoard2=new int[size][size]; //预测棋盘2
@@ -24,7 +17,7 @@ public class UserChess {
     int[][] preBoard5=new int[size][size]; //预测棋盘5
     int[][] preBoard6=new int[size][size]; //预测棋盘6
     int[][] preBoard7=new int[size][size]; //预测棋盘7
-    Color color=Color.black; //棋子颜色
+    Color color=Color.white; //棋子颜色
     int maxValue1=0, maxValue2=0, maxValue3=0, maxValue4=0, maxValue5=0, maxValue6=0, maxValue7=0; //预测棋盘最大值
     int number1=0, number2=0, number3=0, number4=0, number5=0, number6=0, number7=0; //预测棋盘最大值个数
 
@@ -45,7 +38,7 @@ public class UserChess {
     ArrayList maxY6=new ArrayList();
     ArrayList maxY7=new ArrayList();
 
-    public UserChess() {
+    public AIChess() {
     }
 
     /**
@@ -95,7 +88,7 @@ public class UserChess {
       maxY6.clear();
       maxY7.clear();
 
-      color=color.black;
+      color=color.white;
     }
 
     /**
