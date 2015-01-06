@@ -12,16 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 /**
- * <p>Title: 类说明</p>
+ * review frame
+ * @author Qing
  *
- * <p>Description: 回顾控制面板</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
 public class Retrospect extends JFrame {
 

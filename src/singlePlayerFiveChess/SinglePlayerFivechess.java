@@ -6,17 +6,11 @@ import javax.swing.UIManager;
 import java.awt.Dimension;
 
 /**
- * <p>Title: </p>
+ * single player five chess application
+ * @author Qing
  *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author not attributable
- * @version 1.0
  */
+
 public class SinglePlayerFiveChess {
     boolean packFrame = false;
 

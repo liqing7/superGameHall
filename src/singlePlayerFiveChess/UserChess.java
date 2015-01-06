@@ -4,16 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- * <p>Title: 类说明</p>
+ * User chess
+ * @author Qing
  *
- * <p>Description: 用户棋子类</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
 public class UserChess {
     int size=16; //棋盘大小

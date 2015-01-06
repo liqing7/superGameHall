@@ -8,19 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * <p>Title: 类说明</p>
+ * Five chess rules frame
+ * @author Qing
  *
- * <p>Description: 游戏规则面板</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
- * @author goodboy
- * @version 2.1
  */
-
-//五子棋规则显示面板
 public class Rule extends JFrame {
     BorderLayout borderLayout1 = new BorderLayout();
     JPanel jPanel1 = new JPanel();

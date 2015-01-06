@@ -224,43 +224,6 @@ public class Canvas extends JPanel {
       }
     }
 
-    /**
-     * <p>Description: 播放声音</p>
-     * @param index 播放音频文件序号(0-2)
-     */
-//    public void playSound(int index){
-//      try{
-//        InputStream stream;
-//        AudioStream audio;
-//
-//        switch(index){
-//          case 1:{ //落子声
-//            stream=this.getClass().getResourceAsStream("sound/waveUp.wav");
-//            break;
-//          }
-//          case 2:{ //游戏结束声
-//            stream=this.getClass().getResourceAsStream("sound/waveEnd.wav");
-//            break;
-//          }
-//          case 3:{ //游戏结束声
-//            stream=this.getClass().getResourceAsStream("sound/waveDrop.wav");
-//            break;
-//          }
-//          default:{ //落子声
-//            stream=this.getClass().getResourceAsStream("sound/waveUp.wav");
-//            break;
-//          }
-//        }
-//
-//        audio=new AudioStream(stream);
-//        AudioPlayer.player.start(audio);
-//      }
-//      catch(Exception e1){
-//        e1.printStackTrace();
-//        JOptionPane.showMessageDialog(null, e1.toString(), "播放音频文件产生异常", JOptionPane.ERROR_MESSAGE);
-//      }
-//    }
-
     //鼠标点击事件
     public void this_mousePressed(MouseEvent e) {
       int tempX=e.getX();
